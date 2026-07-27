@@ -5,13 +5,11 @@ updateVectorMoveInput();
 
 updateVelocityVector();
 
-if (!keyMove)
-{
-	applyDrag();
-}
+applyDrag();
 
-show_debug_message(oGlobalData.vectAngle(vectVelocity));
 setAngle();
+
+handleCollision();
 
 move();
 

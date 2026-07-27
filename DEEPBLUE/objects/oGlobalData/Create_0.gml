@@ -60,10 +60,11 @@
 			}
 		}
 		
-		vectAngle = function(vect1) //returns degrees above 0 (facring right) of the vect1
+		vectAngle = function(vect1) //returns degrees below 0 (straight right), the direction of vect1
 		{
 			angle = darctan(vect1[1]/vect1[0]);
 			
+			//quadrant checks
 			if (vect1[0] > 0 && vect1[1] > 0) //bottom right quad
 			{
 				return angle;
@@ -77,6 +78,29 @@
 				return 360 + angle;
 			}
 			
-			show_debug_message("oGlobalData.vectAngle possible error")
+			//axis checks
+			if (vect1[0] == 0) //axis checks
+			{
+				if (vect1[1] < 0) //straight down
+				{
+					return 270;
+				}
+				if (vect1[1] > 0) //straight up
+				{
+					return 90;
+				}
+			}
+			if (vect1[1] == 0) //axis checks
+			{
+				if (vect1[0] < 0)
+				{
+					return 180;
+				}
+				if (vect1[0] > 0)
+				{
+					return 0;
+				}
+			}
+			
 			return -1;
 		}
