@@ -1,0 +1,10 @@
+draw depths descending order
+	background 1000
+	player legs 750
+	player torso 700
+	walls 500
+	projectiles 250
+
+practices
+	when possible use functions so that it is easy to reorder actions in each frame
+	use vectors when possible, build a vector toolkit

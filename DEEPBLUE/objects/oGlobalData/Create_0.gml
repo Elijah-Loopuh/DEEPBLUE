@@ -50,15 +50,33 @@
 		
 		vectMax = function(vect1, scalar) //caps vect1 to the scalar, but doesn't snap if within bounds. also returns 0,0 if vect is 0,0
 		{
-			if (vectLength(vect1) != 0)
+			if (vectLength(vect1) > scalar) //return clamped
 			{
-				if (vectLength(vect1) > scalar)
-				{
-					return vectClamp(vect1, scalar);
-				}
-				else
-				{
-					return vect1;
-				}
+				return vectClamp(vect1, scalar);
 			}
+			else //return untouched
+			{
+				return vect1;
+			}
+		}
+		
+		vectAngle = function(vect1) //returns degrees above 0 (facring right) of the vect1
+		{
+			angle = darctan(vect1[1]/vect1[0]);
+			
+			if (vect1[0] > 0 && vect1[1] > 0) //bottom right quad
+			{
+				return angle;
+			}
+			if (vect1[0] < 0) //left half
+			{
+				return 180 + angle;
+			}
+			if (vect1[0] > 1 && vect1[1] < 1) //top right quad
+			{
+				return 360 + angle;
+			}
+			
+			show_debug_message("oGlobalData.vectAngle possible error")
+			return -1;
 		}

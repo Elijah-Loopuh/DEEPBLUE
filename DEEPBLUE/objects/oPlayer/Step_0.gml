@@ -5,15 +5,18 @@ updateVectorMoveInput();
 
 updateVelocityVector();
 
-
 if (!keyMove)
 {
 	applyDrag();
 }
 
+show_debug_message(oGlobalData.vectAngle(vectVelocity));
+setAngle();
 
 move();
-show_debug_message("XXXXX");
+
+/*
+show_debug_message("oPlayer velocity");
 show_debug_message(vectVelocity[0]);
 show_debug_message(vectVelocity[1]);
-show_debug_message("XXXXX");
+*/

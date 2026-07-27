@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sTempArrow",
-    "path":"sprites/sTempArrow/sTempArrow.yy",
+    "name":"sPlayerLegs",
+    "path":"sprites/sPlayerLegs/sPlayerLegs.yy",
   },
   "spriteMaskId":null,
   "visible":true,

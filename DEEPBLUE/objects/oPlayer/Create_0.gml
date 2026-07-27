@@ -4,8 +4,8 @@ vectVelocity = [0, 0]; //tracks 2d Velocity
 vectMoveInput = [0, 0]; //tracks 2d inputs
 
 grip = 1.0; //rate of change of vectVelocity axis under normal conditions
-topSpeed = 10;
-drag = 0.25; //fraction of speed lost every frame no inputs are held
+topSpeed = 25;
+drag = 0.15; //fraction of speed lost every frame no inputs are held
 
 checkKeys = function() //updates key inputs
 {
@@ -13,7 +13,8 @@ checkKeys = function() //updates key inputs
 	keyA = keyboard_check( ord("A") );
 	keyS = keyboard_check( ord("S") );
 	keyD = keyboard_check( ord("D") );
-	keyMove = keyW || keyA || keyS || keyD;
+	keySpace = keyboard_check( vk_space );
+	keyMove = keyW || keyA || keyS || keyD || keySpace;
 }
 
 updateVectorMoveInput = function ()
@@ -50,24 +51,53 @@ updateVectorMoveInput = function ()
 updateVelocityVector = function()
 {
 	vectVelocity = oGlobalData.vectSum(vectVelocity, vectMoveInput); //updates with input vector
+	vectVelocity = oGlobalData.vectMax(vectVelocity, topSpeed); //cap speed to a max value
 }
 
-applyDrag = function()
+applyDrag = function() //drag is proportional to velocity, soft caps at drag/grip
 {
 	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectScale(vectVelocity, drag)));
 }
 
-move = function()
+setAngle = function()
+{
+	if (oGlobalData.vectAngle(vectVelocity) != -1)
+	{
+		image_angle = - oGlobalData.vectAngle(vectVelocity);
+	}
+}
+
+move = function() //handles collisions and moves on both axis
 {
 	wallcheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
 	wallcheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
 	if (wallcheckX != noone)
 	{
-		vectVelocity[0] = 0; //replace with proper scoot process!
+		if (wallcheckX.x > x)
+		{
+			snapX = wallcheckX.bbox_left - bbox_right;
+		}
+		if (wallcheckX.x < x)
+		{
+			snapX = wallcheckX.bbox_right - bbox_left;
+		}
+		
+		x += snapX; //scoot to wall
+		vectVelocity[0] = 0; //stop moving
 	}
 	if (wallcheckY != noone)
 	{
-		vectVelocity[1] = 0; //replace with proper scoot process!
+		if (wallcheckY.y > y)
+		{
+			snapY = wallcheckY.bbox_top - bbox_bottom;
+		}
+		if (wallcheckY.y < y)
+		{
+			snapY = wallcheckY.bbox_bottom - bbox_top;
+		}
+		
+		y += snapY; //scoot to wall
+		vectVelocity[1] = 0; //stop moving
 	}
 	x += vectVelocity[0];
 	y += vectVelocity[1];
