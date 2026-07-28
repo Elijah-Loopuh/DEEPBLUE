@@ -1,4 +1,6 @@
 
+id.depth = 750;
+
 angleStore = 0;
 
 vectVelocity = [0, 0]; //tracks 2d Velocity
@@ -6,8 +8,17 @@ vectMoveInput = [0, 0]; //tracks 2d inputs
 
 grip = 1.0; //rate of change of vectVelocity axis under normal conditions
 topSpeed = 25;
-drag = 0.15; //fraction of speed lost every frame no inputs are held
 snapSpeed = 0.5;
+
+dragStatic = 0.15; //drag when no buttons held
+dragDynamic = 0.0 //drag when movement buttons are held
+dragOverSpeed = 0.5; //drag applied when player is over top speed
+drag = 0.15; //fraction of speed lost every frame no inputs are held
+
+
+dashPower = 50; //dash speed
+dashCooldownMaster = 60*0.5; //# of frames between dashes
+dashCooldown = dashCooldownMaster; //tracker for cooldown
 
 checkKeys = function() //updates key inputs
 {
@@ -16,6 +27,7 @@ checkKeys = function() //updates key inputs
 	keyS = keyboard_check( ord("S") );
 	keyD = keyboard_check( ord("D") );
 	keySpace = keyboard_check( vk_space );
+	keySpacePressed = keyboard_check_pressed( vk_space );
 	keyMove = keyW || keyA || keyS || keyD || keySpace;
 }
 
@@ -47,12 +59,12 @@ updateVectorMoveInput = function ()
 		vectMoveInput[0] = 0;
 	}
 	
-	vectMoveInput = oGlobalData.vectClamp(vectMoveInput, grip); //caps the vector to a circle with radius of grip
+	vectMoveInput = oGlobalData.vectClamp(vectMoveInput, 1); //caps the vector to a unit circle
 }
 
 updateVelocityVector = function()
 {
-	vectVelocity = oGlobalData.vectSum(vectVelocity, vectMoveInput); //updates with input vector
+	vectVelocity = oGlobalData.vectSum(vectVelocity, vectMoveInput); //modifies velocity with move input
 	vectVelocity = oGlobalData.vectMax(vectVelocity, topSpeed); //cap speed to a max value
 }
 
@@ -104,7 +116,16 @@ handleCollision = function() //snaps to walls and stops moving, also overrides p
 	wallcheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
 	if (wallcheckX != noone)
 	{
-		if (wallcheckX.x > x)
+		if (vectVelocity[1] > 0) //face upwards
+		{
+			image_angle = 270;
+		}
+		if (vectVelocity[1] < 0) //face downwards
+		{
+			image_angle = 90;
+		}
+		
+		if (wallcheckX.x > x) //set scoot distance
 		{
 			snapX = wallcheckX.bbox_left - bbox_right;
 		}
@@ -115,19 +136,19 @@ handleCollision = function() //snaps to walls and stops moving, also overrides p
 		
 		x += snapX; //scoot to wall
 		vectVelocity[0] = 0; //stop moving
-		
-		if (vectVelocity[1] > 0) //face upwards
-		{
-			image_angle = 270;
-		}
-		if (vectVelocity[1] < 0) //face downwards
-		{
-			image_angle = 90;
-		}
 	}
 	if (wallcheckY != noone)
 	{
-		if (wallcheckY.y > y)
+		if (vectVelocity[0] > 0) //face right
+		{
+			image_angle = 0;
+		}
+		if (vectVelocity[0] < 0) //face left
+		{
+			image_angle = 180;
+		}
+		
+		if (wallcheckY.y > y) //set scoot distance
 		{
 			snapY = wallcheckY.bbox_top - bbox_bottom;
 		}
@@ -138,16 +159,12 @@ handleCollision = function() //snaps to walls and stops moving, also overrides p
 		
 		y += snapY; //scoot to wall
 		vectVelocity[1] = 0; //stop moving
-		
-		if (vectVelocity[0] > 0) //face right
-		{
-			image_angle = 0;
-		}
-		if (vectVelocity[0] < 0) //face left
-		{
-			image_angle = 180;
-		}
 	}
+}
+
+handleDash = function()
+{
+	vectVelocity = oGlobalData.vectScale(vectMoveInput, dashPower);
 }
 
 move = function() //moves on x & y axes
