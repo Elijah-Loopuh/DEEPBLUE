@@ -3,31 +3,43 @@ id.depth = 750;
 
 angleStore = 0;
 
+
 vectVelocity = [0, 0]; //tracks 2d Velocity
 vectMoveInput = [0, 0]; //tracks 2d inputs
 
-grip = 1.0; //rate of change of vectVelocity axis under normal conditions
-topSpeed = 25;
+
+regularGrip = 1.25; //regular grip
+sprintGrip = 1.0; //lower grip for sprinting
+grip = regularGrip; //rate of change of vectVelocity axis under normal conditions
+
+regularSpeedCap = 25;
+sprintSpeedCap = 40;
+speedCap = regularSpeedCap; //tracks current speed cap
+
 snapSpeed = 0.5;
 
+
 dragStatic = 0.15; //drag when no buttons held
-dragDynamic = 0.0 //drag when movement buttons are held
-dragOverSpeed = 0.5; //drag applied when player is over top speed
-drag = 0.15; //fraction of speed lost every frame no inputs are held
+dragDynamic = 0.0;//drag when movement buttons are held
+drag = dragStatic; //fraction d/1 of speed lost every frame
 
 
-dashPower = 50; //dash speed
+dashPower = 35; //dash speed
 dashCooldownMaster = 60*0.5; //# of frames between dashes
 dashCooldown = dashCooldownMaster; //tracker for cooldown
+dashDurationMaster = 60*0.25;
+dashDuration = 0;
 
-checkKeys = function() //updates key inputs
+updateVars = function() //updates variables
 {
+	underSpeed = oGlobalData.vectLength(vectVelocity) <= speedCap; //tracks if player has control of the mech
 	keyW = keyboard_check( ord("W") );
 	keyA = keyboard_check( ord("A") );
 	keyS = keyboard_check( ord("S") );
 	keyD = keyboard_check( ord("D") );
 	keySpace = keyboard_check( vk_space );
 	keySpacePressed = keyboard_check_pressed( vk_space );
+	keyShift = keyboard_check( vk_shift );
 	keyMove = keyW || keyA || keyS || keyD || keySpace;
 }
 
@@ -64,20 +76,29 @@ updateVectorMoveInput = function ()
 
 updateVelocityVector = function()
 {
-	vectVelocity = oGlobalData.vectSum(vectVelocity, vectMoveInput); //modifies velocity with move input
-	vectVelocity = oGlobalData.vectMax(vectVelocity, topSpeed); //cap speed to a max value
+	if (underSpeed) //take away control when over speedCap
+	{
+		vectVelocity = oGlobalData.vectSum(vectVelocity, vectMoveInput); //modifies velocity with move input
+		vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //cap speed under normal circumstances
+	}
 }
 
 applyDrag = function() //drag is proportional to velocity, soft caps at drag/grip. applys drag to velocity, and snaps velocity to 0 when below snapSpeed
 {
-	if (!keyMove)
+	if (keyMove && underSpeed) //low grip when move inputs allowed
 	{
-		vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectScale(vectVelocity, drag)));
-		if (oGlobalData.vectLength(vectVelocity) < snapSpeed)
-		{
-			vectVelocity[0] = 0;
-			vectVelocity[1] = 0;
-		}
+		drag = dragDynamic;
+	}
+	else //high drag when no input allowed
+	{
+		drag = dragStatic;
+	}
+	
+	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectScale(vectVelocity, drag)));
+	if (oGlobalData.vectLength(vectVelocity) < snapSpeed)
+	{
+		vectVelocity[0] = 0;
+		vectVelocity[1] = 0;
 	}
 }
 
@@ -110,7 +131,72 @@ checkCollision = function() //checks for collisions without actually handling th
 	return output;
 }
 
-handleCollision = function() //snaps to walls and stops moving, also overrides player rotation
+handleCollisionNew = function() //snaps to walls and stops moving, also overrides player rotation
+{	
+	if (checkCollision() == 1) //x axis collsion
+	{
+		if (vectVelocity[1] > 0) //turn to slide on wall
+		{
+			image_angle = 270;
+		}
+		if (vectVelocity[1] < 0) 
+		{
+			image_angle = 90;
+		}
+		
+		if (checkCollision() == 1) //do collisions
+		{
+			wallcheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
+			if (wallcheckX.x > x) //set scoot distance
+			{
+				snapX = wallcheckX.bbox_left - bbox_right;
+			}
+			if (wallcheckX.x < x)
+			{
+				snapX = wallcheckX.bbox_right - bbox_left;
+			}
+		
+			x += snapX; //scoot to wall
+			vectVelocity[0] = 0; //stop moving
+		}
+	}
+	
+	if (checkCollision() == 2) //y axis collsion
+	{
+		if (vectVelocity[0] > 0) //turn to slide wall
+		{
+			image_angle = 0;
+		}
+		if (vectVelocity[0] < 0)
+		{
+			image_angle = 180;
+		}
+		
+		if (checkCollision() == 2) //do collisions
+		{
+			wallcheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
+			if (wallcheckY.y > y) //set scoot distance
+			{
+				snapY = wallcheckY.bbox_top - bbox_bottom;
+			}
+			if (wallcheckY.y < y)
+			{
+				snapY = wallcheckY.bbox_bottom - bbox_top;
+			}
+		
+			y += snapY; //scoot to wall
+			vectVelocity[1] = 0; //stop moving
+		}
+	}
+	
+	if (checkCollision() == 3)
+	{
+		vectVelocity[0] = 0; //stop moving
+		vectVelocity[1] = 0; 
+	}
+}
+
+handleCollision = function() //deprecated, do not use
 {
 	wallcheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
 	wallcheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
@@ -164,7 +250,34 @@ handleCollision = function() //snaps to walls and stops moving, also overrides p
 
 handleDash = function()
 {
-	vectVelocity = oGlobalData.vectScale(vectMoveInput, dashPower);
+	if (keySpacePressed && dashCooldown <= 0) //activate dash
+	{
+		vectDashVeclocity = oGlobalData.vectScale(vectMoveInput, dashPower);
+		dashDuration = dashDurationMaster;
+	}
+	if (dashDuration > 0) //apply dash to velocity
+	{
+		vectVelocity = vectDashVeclocity;
+		dashDuration -= 1
+	}
+	if (dashCooldown >= 0) //track cooldown
+	{
+		dashCooldown -= 1;
+	}
+}
+
+handleSprint = function()
+{
+	if (keyShift)
+	{
+		grip = sprintGrip;
+		speedCap = sprintSpeedCap;
+	}
+	else
+	{
+		grip = regularGrip;
+		speedCap = regularSpeedCap;
+	}
 }
 
 move = function() //moves on x & y axes
