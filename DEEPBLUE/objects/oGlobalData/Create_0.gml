@@ -6,10 +6,28 @@
 		[
 			oWall
 		]
+		
+		partData = //data for all parts
+		[
+			[ //legs
+				defaultLeg = //incompelte struct for data management
+				{
+					name : "default", 
+					regularGrip : 1.25, //regular grip
+					sprintGrip : 1.0, //lower grip for sprinting
+				}
+			], 
+			
+			[ //turrets
+			
+			],
+		]
 
 
 //functions
 
+	//vector  functions
+	
 		vectSum = function (vect1, vect2) //sums two vectors
 		{
 			vectOutput = [0, 0];
@@ -60,7 +78,7 @@
 			}
 		}
 		
-		vectAngle = function(vect1) //returns degrees below 0 (straight right), the direction of vect1
+		vectAngle = function(vect1) //returns degrees clockwise of straight right, the direction of vect1
 		{
 			angle = darctan(vect1[1]/vect1[0]);
 			
@@ -103,4 +121,11 @@
 			}
 			
 			return -1;
+		}
+		
+		vectRotate = function(vect1, scalar) //returns vector rotated clockwise by scalar degrees
+		{
+			vectOutput = [0, 0];
+			vectOutput[0] = x*dcos(scalar) - y*dsin(scalar);
+			vectOutput[1] = x*dsin(scalar) + y*dcos(scalar);
 		}

@@ -12,8 +12,8 @@ regularGrip = 1.25; //regular grip
 sprintGrip = 1.0; //lower grip for sprinting
 grip = regularGrip; //rate of change of vectVelocity axis under normal conditions
 
-regularSpeedCap = 25;
-sprintSpeedCap = 40;
+regularSpeedCap = 15;
+sprintSpeedCap = 35;
 speedCap = regularSpeedCap; //tracks current speed cap
 
 snapSpeed = 0.5;
@@ -24,7 +24,7 @@ dragDynamic = 0.0;//drag when movement buttons are held
 drag = dragStatic; //fraction d/1 of speed lost every frame
 
 
-dashPower = 35; //dash speed
+dashPower = 50; //dash speed
 dashCooldownMaster = 60*0.5; //# of frames between dashes
 dashCooldown = dashCooldownMaster; //tracker for cooldown
 dashDurationMaster = 60*0.25;
@@ -201,72 +201,30 @@ handleCollisionNew = function() //snaps to walls and stops moving, also override
 	{
 		if (wallCheck.x + 32 > x)
 		{
-			vectVelocity[0] = wallCheck.bbox_left - bbox_right;
+			x += wallCheck.bbox_left - bbox_right;
+			vectVelocity[0] = -5;
+			//show_debug_message("pushout to left");
 		}
 		if (wallCheck.x + 32 < x)
 		{
-			vectVelocity[0] = wallCheck.bbox_right - bbox_left;
+			x += wallCheck.bbox_right - bbox_left;
+			vectVelocity[0] = 5;
+			//show_debug_message("pushout to right");
 		}
 		if (wallCheck.y + 32 > y)
 		{
-			vectVelocity[1] = wallCheck.bbox_top - bbox_bottom;
+			y += wallCheck.bbox_top - bbox_bottom;
+			vectVelocity[1] = -5;
+			//show_debug_message("pushout to top");
 		}
 		if (wallCheck.y + 32 < y)
 		{
-			vectVelocity[1] = wallCheck.bbox_bottom - bbox_top;
+			y += wallCheck.bbox_bottom - bbox_top;
+			vectVelocity[1] = 5;
+			//show_debug_message("pushout to bottom");
 		}
-	}
-}
-
-handleCollision = function() //deprecated, do not use
-{
-	wallCheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
-	wallCheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
-	if (wallCheckX != noone)
-	{
-		if (vectVelocity[1] > 0) //face upwards
-		{
-			image_angle = 270;
-		}
-		if (vectVelocity[1] < 0) //face downwards
-		{
-			image_angle = 90;
-		}
-		
-		if (wallCheckX.x > x) //set scoot distance
-		{
-			snapX = wallCheckX.bbox_left - bbox_right;
-		}
-		if (wallCheckX.x < x)
-		{
-			snapX = wallCheckX.bbox_right - bbox_left;
-		}
-		
-		x += snapX; //scoot to wall
-		vectVelocity[0] = 0; //stop moving
-	}
-	if (wallCheckY != noone)
-	{
-		if (vectVelocity[0] > 0) //face right
-		{
-			image_angle = 0;
-		}
-		if (vectVelocity[0] < 0) //face left
-		{
-			image_angle = 180;
-		}
-		
-		if (wallCheckY.y > y) //set scoot distance
-		{
-			snapY = wallCheckY.bbox_top - bbox_bottom;
-		}
-		if (wallCheckY.y < y)
-		{
-			snapY = wallCheckY.bbox_bottom - bbox_top;
-		}
-		
-		y += snapY; //scoot to wall
-		vectVelocity[1] = 0; //stop moving
+		//show_debug_message(vectVelocity[0]);
+		//show_debug_message(vectVelocity[1]);
 	}
 }
 
