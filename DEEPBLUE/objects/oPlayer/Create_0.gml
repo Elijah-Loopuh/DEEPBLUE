@@ -117,14 +117,14 @@ setAngle = function()
 
 checkCollision = function() //checks for collisions without actually handling them. 0 = none, 1 = x axis, 2 = y axis, 3 = both axes.
 {
-	wallcheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
-	wallcheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
+	wallCheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
+	wallCheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
 	output = 0;
-	if (wallcheckX != noone)
+	if (wallCheckX != noone)
 	{
 		output += 1;
 	}
-	if (wallcheckY != noone)
+	if (wallCheckY != noone)
 	{
 		output += 2;
 	}
@@ -133,7 +133,7 @@ checkCollision = function() //checks for collisions without actually handling th
 
 handleCollisionNew = function() //snaps to walls and stops moving, also overrides player rotation
 {	
-	if (checkCollision() == 1) //x axis collsion
+	if (checkCollision() == 1 && checkCollision() != 3 ) //x axis collsion
 	{
 		if (vectVelocity[1] > 0) //turn to slide on wall
 		{
@@ -146,14 +146,14 @@ handleCollisionNew = function() //snaps to walls and stops moving, also override
 		
 		if (checkCollision() == 1) //do collisions
 		{
-			wallcheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
-			if (wallcheckX.x > x) //set scoot distance
+			wallCheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
+			if (wallCheckX.x > x) //set scoot distance
 			{
-				snapX = wallcheckX.bbox_left - bbox_right;
+				snapX = wallCheckX.bbox_left - bbox_right;
 			}
-			if (wallcheckX.x < x)
+			if (wallCheckX.x < x)
 			{
-				snapX = wallcheckX.bbox_right - bbox_left;
+				snapX = wallCheckX.bbox_right - bbox_left;
 			}
 		
 			x += snapX; //scoot to wall
@@ -161,7 +161,7 @@ handleCollisionNew = function() //snaps to walls and stops moving, also override
 		}
 	}
 	
-	if (checkCollision() == 2) //y axis collsion
+	if (checkCollision() == 2 && checkCollision() != 3 ) //y axis collsion
 	{
 		if (vectVelocity[0] > 0) //turn to slide wall
 		{
@@ -174,14 +174,14 @@ handleCollisionNew = function() //snaps to walls and stops moving, also override
 		
 		if (checkCollision() == 2) //do collisions
 		{
-			wallcheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
-			if (wallcheckY.y > y) //set scoot distance
+			wallCheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
+			if (wallCheckY.y > y) //set scoot distance
 			{
-				snapY = wallcheckY.bbox_top - bbox_bottom;
+				snapY = wallCheckY.bbox_top - bbox_bottom;
 			}
-			if (wallcheckY.y < y)
+			if (wallCheckY.y < y)
 			{
-				snapY = wallcheckY.bbox_bottom - bbox_top;
+				snapY = wallCheckY.bbox_bottom - bbox_top;
 			}
 		
 			y += snapY; //scoot to wall
@@ -191,16 +191,38 @@ handleCollisionNew = function() //snaps to walls and stops moving, also override
 	
 	if (checkCollision() == 3)
 	{
-		vectVelocity[0] = 0; //stop moving
-		vectVelocity[1] = 0; 
+		vectVelocity[0] = 0;
+		vectVelocity[1] = 0;
+	}
+	
+	wallCheck = instance_place(x, y, oGlobalData.collisionList);
+	
+	if (wallCheck != noone) //if inside wall, push outside of the wal
+	{
+		if (wallCheck.x + 32 > x)
+		{
+			vectVelocity[0] = wallCheck.bbox_left - bbox_right;
+		}
+		if (wallCheck.x + 32 < x)
+		{
+			vectVelocity[0] = wallCheck.bbox_right - bbox_left;
+		}
+		if (wallCheck.y + 32 > y)
+		{
+			vectVelocity[1] = wallCheck.bbox_top - bbox_bottom;
+		}
+		if (wallCheck.y + 32 < y)
+		{
+			vectVelocity[1] = wallCheck.bbox_bottom - bbox_top;
+		}
 	}
 }
 
 handleCollision = function() //deprecated, do not use
 {
-	wallcheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
-	wallcheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
-	if (wallcheckX != noone)
+	wallCheckX = instance_place(x + vectVelocity[0], y, oGlobalData.collisionList);
+	wallCheckY = instance_place(x, y + vectVelocity[1], oGlobalData.collisionList);
+	if (wallCheckX != noone)
 	{
 		if (vectVelocity[1] > 0) //face upwards
 		{
@@ -211,19 +233,19 @@ handleCollision = function() //deprecated, do not use
 			image_angle = 90;
 		}
 		
-		if (wallcheckX.x > x) //set scoot distance
+		if (wallCheckX.x > x) //set scoot distance
 		{
-			snapX = wallcheckX.bbox_left - bbox_right;
+			snapX = wallCheckX.bbox_left - bbox_right;
 		}
-		if (wallcheckX.x < x)
+		if (wallCheckX.x < x)
 		{
-			snapX = wallcheckX.bbox_right - bbox_left;
+			snapX = wallCheckX.bbox_right - bbox_left;
 		}
 		
 		x += snapX; //scoot to wall
 		vectVelocity[0] = 0; //stop moving
 	}
-	if (wallcheckY != noone)
+	if (wallCheckY != noone)
 	{
 		if (vectVelocity[0] > 0) //face right
 		{
@@ -234,13 +256,13 @@ handleCollision = function() //deprecated, do not use
 			image_angle = 180;
 		}
 		
-		if (wallcheckY.y > y) //set scoot distance
+		if (wallCheckY.y > y) //set scoot distance
 		{
-			snapY = wallcheckY.bbox_top - bbox_bottom;
+			snapY = wallCheckY.bbox_top - bbox_bottom;
 		}
-		if (wallcheckY.y < y)
+		if (wallCheckY.y < y)
 		{
-			snapY = wallcheckY.bbox_bottom - bbox_top;
+			snapY = wallCheckY.bbox_bottom - bbox_top;
 		}
 		
 		y += snapY; //scoot to wall
