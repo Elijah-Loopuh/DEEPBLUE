@@ -1,15 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"oWall",
+  "%Name":"oWallMarker",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oWall",
+  "name":"oWallMarker",
   "overriddenProperties":[],
   "parent":{
-    "name":"Physical",
-    "path":"folders/Objects/Physical.yy",
+    "name":"Technical",
+    "path":"folders/Objects/Technical.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -30,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sWallTexture",
-    "path":"sprites/sWallTexture/sWallTexture.yy",
+    "name":"sNoTexture",
+    "path":"sprites/sNoTexture/sNoTexture.yy",
   },
   "spriteMaskId":null,
   "visible":true,

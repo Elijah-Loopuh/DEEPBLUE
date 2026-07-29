@@ -1,18 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"oWall",
+  "%Name":"oFunctionCaller",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oWall",
+  "name":"oFunctionCaller",
   "overriddenProperties":[],
   "parent":{
-    "name":"Physical",
-    "path":"folders/Objects/Physical.yy",
+    "name":"Technical",
+    "path":"folders/Objects/Technical.yy",
   },
   "parentObjectId":null,
-  "persistent":false,
+  "persistent":true,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,
@@ -29,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sWallTexture",
-    "path":"sprites/sWallTexture/sWallTexture.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

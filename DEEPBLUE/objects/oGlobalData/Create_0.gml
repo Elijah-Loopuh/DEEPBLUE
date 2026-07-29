@@ -4,26 +4,58 @@
 
 		collisionList = //contains a list of collidable objects
 		[
-			oWall
-		]
-		
+			oWall, 
+		];
+
+
 		partData = //data for all parts
 		[
-			[ //legs
-				defaultLeg = //incompelte struct for data management
-				{
-					name : "default", 
-					regularGrip : 1.25, //regular grip
-					sprintGrip : 1.0, //lower grip for sprinting
-				}
-			], 
-			
-			[ //turrets
-			
-			],
-		]
+			{ //default leg
+				name : "default leg", 
+				regularGrip : 1.25, //regular grip
+				sprintGrip : 1.0,  //lower grip for sprinting
+				regularSpeedCap : 15,
+				sprintSpeedCap : 35,
+				dragStatic : 0.15, //drag when no buttons held
+				dragDynamic : 0.0,//drag when movement buttons are held
+				dashPower : 50, //dash speed
+				dashCooldownMaster : 60*0.75, //# of frames between dashes
+				dashDurationMaster : 60*0.25,
+				sprite : sDefaultLegs
+			}, 
+			{ //default body
+				name : "default body", 
+				main : [0, -1, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
+				aux : [0, 0, -1, -1, -1], 
+				def : [0, -1, -1, -1, -1], 
+				sprite : sDefaultBody
+			}, 
+			{ //fast leg
+				name : "fast leg", 
+				regularGrip : 4.0, //regular grip
+				sprintGrip : 2.0,  //lower grip for sprinting
+				regularSpeedCap : 30,
+				sprintSpeedCap : 50,
+				dragStatic : 0.30, //drag when no buttons held
+				dragDynamic : 0.0,//drag when movement buttons are held
+				dashPower : 75, //dash speed
+				dashCooldownMaster : 60*0.25, //# of frames between dash initiations
+				dashDurationMaster : 60*0.25,
+				sprite : sFastLegs
+			}, 
+			{ //fast body
+				name : "fast body", 
+				main : [-1, -1, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
+				aux : [0, -1, -1, -1, -1], 
+				def : [0, -1, -1, -1, -1], 
+				sprite : sFastBody
+			}, 
+		];
 
-
+		
+		equippedLegs = "default leg"; //stores the name of frame peices equipped
+		equippedBody = "default body";
+		
 //functions
 
 	//vector  functions
@@ -128,4 +160,99 @@
 			vectOutput = [0, 0];
 			vectOutput[0] = x*dcos(scalar) - y*dsin(scalar);
 			vectOutput[1] = x*dsin(scalar) + y*dcos(scalar);
+		}
+		
+		
+	//partData functions
+	
+		getPartIndex = function(name) //returns partData index matching the name requested. returns -1 as an error code
+		{
+			for (i = 0; i < array_length(partData); i ++)
+			{
+				if (partData[i].name == name)
+				{
+					return i;
+				}
+			}
+			show_error("didn't find part name: " + name, true); //abort if invalid name
+		}
+		
+		initalizePlayerLegs = function(name)
+		{
+			index = getPartIndex(name); //get data location
+			
+			//assign variables
+			oLegs.regularGrip = partData[index].regularGrip;
+			oLegs.sprintGrip = partData[index].sprintGrip;
+			oLegs.regularSpeedCap = partData[index].regularSpeedCap;
+			oLegs.sprintSpeedCap = partData[index].sprintSpeedCap;
+			oLegs.dragStatic = partData[index].dragStatic;
+			oLegs.dragDynamic = partData[index].dragDynamic;
+			oLegs.dashPower = partData[index].dashPower;
+			oLegs.dashCooldownMaster = partData[index].dashCooldownMaster;
+			oLegs.dashDurationMaster = partData[index].dashDurationMaster;
+			oLegs.sprite_index = partData[index].sprite;
+		}
+		
+		initalizePlayerBody = function(name)
+		{
+			index = getPartIndex(name); //get data location
+			
+			//assign variables
+			oBody.main = partData[index].main; //stores the number of available slots of each type
+			oBody.aux = partData[index].aux; 
+			oBody.def = partData[index].def; 
+			oBody.sprite_index = partData[index].sprite;
+		}
+		
+		
+	//other functions
+		
+		function spawn_walls(x, y, width /*use room width*/, height /*use room height*/) // replaces devMarker with proper walls
+		{
+		    var w = width/64 + 2;
+		    var h = height/64 + 2;
+
+		    for (var yy = 0; yy < h; yy++)
+		    {
+		        for (var xx = 0; xx < w; xx++)
+		        {
+					//show_debug_message(xx*32)
+					//show_debug_message(yy*32)
+		            //check for devmarker
+		            if (position_meeting((xx*64)+32, (yy*64)+32, oWallMarker))
+		            {
+		                instance_create_layer(
+		                    x + xx * 64,
+		                    y + yy * 64,
+		                    "Instances",
+		                    oWall
+		                );
+						//show_debug_message("wall spawned");
+		            }
+		        }
+		    }
+		}
+		
+		function spawn_room_walls(x, y, width /*use room width*/, height /*use room height*/) // makes room wall boundaries
+		{
+		    var w = width/64 + 2;
+		    var h = height/64 + 2;
+
+		    for (var yy = 0; yy < h; yy++)
+		    {
+		        for (var xx = 0; xx < w; xx++)
+		        {
+		            // 2-tile thick border condition
+		            if (xx < 2 || xx >= w - 2 || yy < 2 || yy >= h - 2)
+		            {
+		                instance_create_layer(
+		                    x + xx * 64,
+		                    y + yy * 64,
+		                    "Instances",
+		                    oWall
+		                );
+		            }
+		        }
+		    }
 		}

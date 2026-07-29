@@ -1,34 +1,32 @@
 
 id.depth = 750;
 
+//variable initalization
+regularGrip = 0; //regular grip
+sprintGrip = 0; //lower grip for sprinting
+regularSpeedCap = 0;
+sprintSpeedCap = 0;
+dragStatic = 0; //drag when no buttons held
+dragDynamic = 0;//drag when movement buttons are held
+dashPower = 0; //dash speed
+dashCooldownMaster = 0; //# of frames between dashes
+dashDurationMaster = 0;
+
+oGlobalData.initalizePlayerLegs(oGlobalData.equippedLegs);
+
 angleStore = 0;
-
-
+snapSpeed = 0.5;
+dashDuration = 0;
 vectVelocity = [0, 0]; //tracks 2d Velocity
 vectMoveInput = [0, 0]; //tracks 2d inputs
+vectPos = [x, y]; //tracks position
 
-
-regularGrip = 1.25; //regular grip
-sprintGrip = 1.0; //lower grip for sprinting
+//variable assigning
 grip = regularGrip; //rate of change of vectVelocity axis under normal conditions
-
-regularSpeedCap = 15;
-sprintSpeedCap = 35;
 speedCap = regularSpeedCap; //tracks current speed cap
-
-snapSpeed = 0.5;
-
-
-dragStatic = 0.15; //drag when no buttons held
-dragDynamic = 0.0;//drag when movement buttons are held
 drag = dragStatic; //fraction d/1 of speed lost every frame
-
-
-dashPower = 50; //dash speed
-dashCooldownMaster = 60*0.5; //# of frames between dashes
 dashCooldown = dashCooldownMaster; //tracker for cooldown
-dashDurationMaster = 60*0.25;
-dashDuration = 0;
+
 
 updateVars = function() //updates variables
 {
@@ -78,7 +76,7 @@ updateVelocityVector = function()
 {
 	if (underSpeed) //take away control when over speedCap
 	{
-		vectVelocity = oGlobalData.vectSum(vectVelocity, vectMoveInput); //modifies velocity with move input
+		vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectScale(vectMoveInput, grip)); //modifies velocity with move input
 		vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //cap speed under normal circumstances
 	}
 }
@@ -102,14 +100,14 @@ applyDrag = function() //drag is proportional to velocity, soft caps at drag/gri
 	}
 }
 
-setAngle = function()
+setAngle = function(angleTarget = -oGlobalData.vectAngle(vectVelocity))
 {
 	angleStore = image_angle;
-	if (oGlobalData.vectAngle(vectVelocity))
+	if (oGlobalData.vectAngle(vectVelocity) != -1) //valid angle target
 	{
-		image_angle = -oGlobalData.vectAngle(vectVelocity);
+		image_angle = angleTarget;
 	}
-	if (checkCollision() != 0)
+	if (checkCollision() != 0) //if turn would put inside wall, reset
 	{
 		image_angle = angleStore;
 	}
@@ -137,11 +135,11 @@ handleCollisionNew = function() //snaps to walls and stops moving, also override
 	{
 		if (vectVelocity[1] > 0) //turn to slide on wall
 		{
-			image_angle = 270;
+			setAngle(270);
 		}
 		if (vectVelocity[1] < 0) 
 		{
-			image_angle = 90;
+			setAngle(90);
 		}
 		
 		if (checkCollision() == 1) //do collisions
@@ -165,11 +163,11 @@ handleCollisionNew = function() //snaps to walls and stops moving, also override
 	{
 		if (vectVelocity[0] > 0) //turn to slide wall
 		{
-			image_angle = 0;
+			setAngle(0);
 		}
 		if (vectVelocity[0] < 0)
 		{
-			image_angle = 180;
+			setAngle(180);
 		}
 		
 		if (checkCollision() == 2) //do collisions
@@ -234,6 +232,7 @@ handleDash = function()
 	{
 		vectDashVeclocity = oGlobalData.vectScale(vectMoveInput, dashPower);
 		dashDuration = dashDurationMaster;
+		dashCooldown = dashCooldownMaster;
 	}
 	if (dashDuration > 0) //apply dash to velocity
 	{
@@ -264,4 +263,37 @@ move = function() //moves on x & y axes
 {
 	x += vectVelocity[0];
 	y += vectVelocity[1];
+	
+	oBody.x = x;
+	oBody.y = y;
+}
+
+{ //old initialization code
+/*
+vectVelocity = [0, 0]; //tracks 2d Velocity
+vectMoveInput = [0, 0]; //tracks 2d inputs
+
+
+regularGrip = 1.25; //regular grip
+sprintGrip = 1.0; //lower grip for sprinting
+grip = regularGrip; //rate of change of vectVelocity axis under normal conditions
+
+regularSpeedCap = 15;
+sprintSpeedCap = 35;
+speedCap = regularSpeedCap; //tracks current speed cap
+
+snapSpeed = 0.5;
+
+
+dragStatic = 0.15; //drag when no buttons held
+dragDynamic = 0.0;//drag when movement buttons are held
+drag = dragStatic; //fraction d/1 of speed lost every frame
+
+
+dashPower = 50; //dash speed
+dashCooldownMaster = 60*0.5; //# of frames between dashes
+dashCooldown = dashCooldownMaster; //tracker for cooldown
+dashDurationMaster = 60*0.25;
+dashDuration = 0;
+*/
 }

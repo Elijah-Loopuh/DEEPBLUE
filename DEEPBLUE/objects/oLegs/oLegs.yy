@@ -1,19 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"oTurret",
+  "%Name":"oLegs",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oTurret",
+  "name":"oLegs",
   "overriddenProperties":[],
   "parent":{
     "name":"Physical",
     "path":"folders/Objects/Physical.yy",
   },
   "parentObjectId":null,
-  "persistent":false,
+  "persistent":true,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,
@@ -30,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sPlayerTurret",
-    "path":"sprites/sPlayerTurret/sPlayerTurret.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
