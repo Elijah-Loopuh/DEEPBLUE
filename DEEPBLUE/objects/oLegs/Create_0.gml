@@ -1,6 +1,6 @@
 
 id.depth = 750;
-
+/*
 //variable initalization
 regularGrip = 0; //regular grip
 sprintGrip = 0; //lower grip for sprinting
@@ -12,8 +12,9 @@ dashPower = 0; //dash speed
 dashCooldownMaster = 0; //# of frames between dashes
 dashDurationMaster = 0;
 
-oGlobalData.initalizePlayerLegs(oGlobalData.equippedLegs);
-
+//oGlobalData.initalizePlayerLegs(oGlobalData.equippedLegs);
+*/
+sprite_index = sprite;
 angleStore = 0;
 snapSpeed = 0.5;
 dashDuration = 0;
@@ -263,9 +264,6 @@ move = function() //moves on x & y axes
 {
 	x += vectVelocity[0];
 	y += vectVelocity[1];
-	
-	oBody.x = x;
-	oBody.y = y;
 }
 
 { //old initialization code

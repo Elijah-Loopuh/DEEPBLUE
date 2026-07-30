@@ -1,9 +1,16 @@
 id.depth = 700;
+sprite_index = sprite;
+vectPos = [0, 0];
+	//function definitions
 
-//variable declaration
-main = [0]; //these arrays will track equipped weapons, haven't been made yet
-aux = [0];
-def = [0];
-
-//variable assignation
-oGlobalData.initalizePlayerBody(oGlobalData.equippedBody);
+		faceToMouse = function() //points to mouse
+		{
+			vectMouse = [mouse_x, mouse_y];
+			image_angle = - oGlobalData.vectAngle(oGlobalData.vectSum(oGlobalData.vectInvert(vectPos),vectMouse));
+		}
+		
+		updatePosition = function()
+		{
+			x = oLegs.x;
+			y = oLegs.y;
+		}

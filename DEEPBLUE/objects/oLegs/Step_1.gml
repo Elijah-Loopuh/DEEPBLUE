@@ -1,3 +1,4 @@
+vectPos = [x, y]; //tracks position
 
 updateVars();
 
@@ -18,10 +19,12 @@ handleCollisionNew();
 move();
 
 
+
+
+
+/*
+show_debug_message("XXX");
+show_debug_message(x);
+show_debug_message(y);
 /*
 show_debug_message(grip);
-
-
-show_debug_message("XXX");
-show_debug_message(vectVelocity[0]);
-show_debug_message(vectVelocity[1]);

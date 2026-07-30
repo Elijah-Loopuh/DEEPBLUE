@@ -1,6 +1,8 @@
 
-
 faceToMouse();
-updatePosition();
+
+setPosition();
+
+shootBullet();
 
 vectPos = [x, y]; //tracks position

@@ -2,9 +2,11 @@ draw depths descending order
 	background 1000
 	player legs 750
 	player torso 700
+	guns = 600
 	walls 500
 	projectiles 250
 
 practices
 	when possible use functions so that it is easy to reorder actions in each frame
 	use vectors when possible, build a vector toolkit
+	leg set goes in the start step event, body goes in the center step, and weps go in the end step event

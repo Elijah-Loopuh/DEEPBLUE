@@ -1,7 +1,7 @@
 
 
 //data structures
-
+{
 		collisionList = //contains a list of collidable objects
 		[
 			oWall, 
@@ -28,7 +28,10 @@
 				main : [0, -1, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
 				aux : [0, 0, -1, -1, -1], 
 				def : [0, -1, -1, -1, -1], 
-				sprite : sDefaultBody
+				sprite : sDefaultBody, 
+				mainOffsets: [[16, 0]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
+				auxOffsets: [[-11, -7], [-11, 7]], 
+				defOffsets: [[-20, 0]],
 			}, 
 			{ //fast leg
 				name : "fast leg", 
@@ -48,18 +51,33 @@
 				main : [-1, -1, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
 				aux : [0, -1, -1, -1, -1], 
 				def : [0, -1, -1, -1, -1], 
-				sprite : sFastBody
+				sprite : sFastBody, 
+				mainOffsets: [[]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
+				auxOffsets: [[-11, -17]], 
+				defOffsets: [[-1, 17]],
+			}, 
+			{ //middle mg
+				name : "middle mg", //used for easier handling
+				slotType : "aux", //used to figure out slot type 
+				fireDelayMaster : 0.08 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oMiddleBullet, //not added yet, needs to be implemented!
+				projectileOffest : [16, 0], //pixel offset from sprite origin
+				spread : 2, //spread in degrees
+				sprite : sMiddleMachineGun, 
+				mountOffset : [0, 0]
 			}, 
 		];
 
 		
-		equippedLegs = "default leg"; //stores the name of frame peices equipped
-		equippedBody = "default body";
+		equippedLegs = "fast leg"; //stores the name of frame peices equipped
+		equippedBody = "fast body";
 		
+		equippedAux = ["middle mg"];
+}
 //functions
 
 	//vector  functions
-	
+{
 		vectSum = function (vect1, vect2) //sums two vectors
 		{
 			vectOutput = [0, 0];
@@ -86,7 +104,7 @@
 			return sqrt(sqr(vect1[0]) + sqr(vect1[1]));
 		}
 
-		vectClamp = function (vect1, scalar) //returns the vector with it's length snapped to the scalar (makes it a unit vector) unless length og 0, then returns input vector
+		vectClamp = function (vect1, scalar = 1) //returns vect1 with length scalar, unless vect1 is [0, 0]. if no scalar, returns a unit vector
 		{
 			if (vectLength(vect1) != 0)
 			{
@@ -112,6 +130,7 @@
 		
 		vectAngle = function(vect1) //returns degrees clockwise of straight right, the direction of vect1
 		{
+			//vect1 = oGlobalData.vectClamp()
 			angle = darctan(vect1[1]/vect1[0]);
 			
 			//quadrant checks
@@ -123,7 +142,7 @@
 			{
 				return 180 + angle;
 			}
-			if (vect1[0] > 1 && vect1[1] < 1) //top right quad
+			if (vect1[0] > 0 && vect1[1] < 0) //top right quad
 			{
 				return 360 + angle;
 			}
@@ -158,56 +177,127 @@
 		vectRotate = function(vect1, scalar) //returns vector rotated clockwise by scalar degrees
 		{
 			vectOutput = [0, 0];
-			vectOutput[0] = x*dcos(scalar) - y*dsin(scalar);
-			vectOutput[1] = x*dsin(scalar) + y*dcos(scalar);
+			vectOutput[0] = (vect1[0]*dcos(scalar)) - (vect1[1]*dsin(scalar));
+			vectOutput[1] = (vect1[0]*dsin(scalar)) + (vect1[1]*dcos(scalar));
+			return vectOutput;
 		}
 		
+		vectDotProduct = function(vect1, vect2) //returns the dot product of the two vectors
+		{
+			output = [0, 0];
+			output[0] = vect1[0] * vect2[0];
+			output[1] = vect1[1] * vect2[1];
+			return output;
+		}
+		
+		vectGetComponent = function(vect1, vect2) //returns the component of vect1 in the vect2 direction
+		{
+			return vectDotProduct(vect1, vectClamp(vect2));
+		}
+}
 		
 	//partData functions
-	
+{
 		getPartIndex = function(name) //returns partData index matching the name requested. returns -1 as an error code
 		{
-			for (i = 0; i < array_length(partData); i ++)
+			for (var i = 0; i < array_length(partData); i ++)
 			{
 				if (partData[i].name == name)
 				{
 					return i;
 				}
 			}
-			show_error("didn't find part name: " + name, true); //abort if invalid name
+			show_error("oGlobalData.getPartIndex couldn't find part name: " + name, true); //abort if invalid name
+		}
+		
+		setSlotIndex = function(slotName, wepName) //returns the index of the lowest unoccupied slot, and marks it occupied by that weapon
+		{
+			show_debug_message("slot finding started");
+			if (slotName == "main") //looks for right type of slot
+			{
+				for (var i = 0; i < array_length(partData[getPartIndex(equippedBody)].main); i ++) //loos at slots in order from lowest
+				{
+					if (partData[getPartIndex(equippedBody)].main[i] == 0) //makes sure slot is valid
+					{
+						partData[getPartIndex(equippedBody)].main[i] = wepName;
+						return i;
+					}
+				}
+				i = 0;
+			}
+			if (slotName == "aux")
+			{
+				show_debug_message("found aux type");
+				for (var i = 0; i < array_length(partData[getPartIndex(equippedBody)].aux); i += 1)
+				{
+					if (partData[getPartIndex(equippedBody)].aux[i] == 0)
+					{
+						show_debug_message("found empty slot")
+						partData[getPartIndex(equippedBody)].aux[i] = wepName;
+						return i;
+					}
+				}
+			}
+			if (slotName == "def")
+			{
+				for (var i = 0; i < array_length(partData[getPartIndex(equippedBody)].def); i ++)
+				{
+					if (partData[getPartIndex(equippedBody)].def[i] == 0)
+					{
+						partData[getPartIndex(equippedBody)].aux[i] = wepName;
+						return i;
+					}
+				}
+			}
+			show_error("oGlobalData.getSlotIndex couldn't find slot type: " + slotName, true); //abort if invalid name
+		}
+		
+		getMountOffset = function(slotName, index)
+		{
+			show_debug_message("offset declaration started")
+			if (slotName == "main") //looks for right type of slot
+			{
+				return partData[getPartIndex(equippedBody)].mainOffsets[index];
+			}
+			if (slotName == "aux")
+			{
+				return partData[getPartIndex(equippedBody)].auxOffsets[index];
+			}
+			if (slotName == "def")
+			{
+				return partData[getPartIndex(equippedBody)].defOffsets[index];
+			}
+			show_error("oGlobalData.getMountOffset couldn't find slot type: " + slotName, true); //abort if invalid name
 		}
 		
 		initalizePlayerLegs = function(name)
 		{
 			index = getPartIndex(name); //get data location
-			
-			//assign variables
-			oLegs.regularGrip = partData[index].regularGrip;
-			oLegs.sprintGrip = partData[index].sprintGrip;
-			oLegs.regularSpeedCap = partData[index].regularSpeedCap;
-			oLegs.sprintSpeedCap = partData[index].sprintSpeedCap;
-			oLegs.dragStatic = partData[index].dragStatic;
-			oLegs.dragDynamic = partData[index].dragDynamic;
-			oLegs.dashPower = partData[index].dashPower;
-			oLegs.dashCooldownMaster = partData[index].dashCooldownMaster;
-			oLegs.dashDurationMaster = partData[index].dashDurationMaster;
-			oLegs.sprite_index = partData[index].sprite;
+			instance_create_layer(600, 600, "PlayerThings", oLegs, partData[index]); //creates a legs object with proper data
 		}
 		
 		initalizePlayerBody = function(name)
 		{
 			index = getPartIndex(name); //get data location
-			
-			//assign variables
-			oBody.main = partData[index].main; //stores the number of available slots of each type
-			oBody.aux = partData[index].aux; 
-			oBody.def = partData[index].def; 
-			oBody.sprite_index = partData[index].sprite;
+			instance_create_layer(0, 0, "PlayerThings", oBody, partData[index]); //creates a body object with proper data
 		}
 		
+		initalizePlayerGun = function(name)
+		{
+			show_debug_message("gun init started");
+			index = getPartIndex(name);
+			show_debug_message("index got");
+			dataStruct = partData[index];
+			show_debug_message("data struct created");
+			dataStruct.mountOffset = getMountOffset(dataStruct.slotType, setSlotIndex(dataStruct.slotType, dataStruct.name));
+			show_debug_message("offset declared");
+			instance_create_layer(600, 600, "PlayerThings", oGun, partData[index]); //creates a gun object with proper data
+			show_debug_message("gun init done");
+		}
+}
 		
 	//other functions
-		
+{
 		function spawn_walls(x, y, width /*use room width*/, height /*use room height*/) // replaces devMarker with proper walls
 		{
 		    var w = width/64 + 2;
@@ -256,3 +346,4 @@
 		        }
 		    }
 		}
+}
