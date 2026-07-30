@@ -60,19 +60,29 @@
 				name : "middle mg", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
 				fireDelayMaster : 0.08 * 60, //frames between shots = 1 / (RPM / 60)
-				projectile : oMiddleBullet, //not added yet, needs to be implemented!
-				projectileOffest : [16, 0], //pixel offset from sprite origin
+				projectile : oMiddleBullet, //single bullet projectile
+				projectileOffest : [32, -1], //pixel offset from sprite origin
 				spread : 2, //spread in degrees
 				sprite : sMiddleMachineGun, 
-				mountOffset : [0, 0]
+				mountOffset : [0, 0] //filled in when gun is assigned to a slot. placeholder
+			}, 
+			{ //shotgun
+				name : "shotgun", //used for easier handling
+				slotType : "main", //used to figure out slot type 
+				fireDelayMaster : 0.5 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oShotGunShell, //invisible handler spawns multiple bullets
+				projectileOffest : [38, 0], //pixel offset from sprite origin to spawn bullets at
+				spread : 5, //spread in degrees
+				sprite : sShotGun, 
+				mountOffset : [0, 0] //filled in when gun is assigned to a slot. placeholder
 			}, 
 		];
 
 		
-		equippedLegs = "fast leg"; //stores the name of frame peices equipped
-		equippedBody = "fast body";
+		equippedLegs = "default leg"; //stores the name of frame peices equipped
+		equippedBody = "default body";
 		
-		equippedAux = ["middle mg"];
+		equippedGuns = [["middle mg", mb_left], ["middle mg", mb_left], ["shotgun", mb_right]];
 }
 //functions
 
@@ -212,7 +222,6 @@
 		
 		setSlotIndex = function(slotName, wepName) //returns the index of the lowest unoccupied slot, and marks it occupied by that weapon
 		{
-			show_debug_message("slot finding started");
 			if (slotName == "main") //looks for right type of slot
 			{
 				for (var i = 0; i < array_length(partData[getPartIndex(equippedBody)].main); i ++) //loos at slots in order from lowest
@@ -227,12 +236,10 @@
 			}
 			if (slotName == "aux")
 			{
-				show_debug_message("found aux type");
 				for (var i = 0; i < array_length(partData[getPartIndex(equippedBody)].aux); i += 1)
 				{
 					if (partData[getPartIndex(equippedBody)].aux[i] == 0)
 					{
-						show_debug_message("found empty slot")
 						partData[getPartIndex(equippedBody)].aux[i] = wepName;
 						return i;
 					}
@@ -254,7 +261,6 @@
 		
 		getMountOffset = function(slotName, index)
 		{
-			show_debug_message("offset declaration started")
 			if (slotName == "main") //looks for right type of slot
 			{
 				return partData[getPartIndex(equippedBody)].mainOffsets[index];
@@ -282,17 +288,13 @@
 			instance_create_layer(0, 0, "PlayerThings", oBody, partData[index]); //creates a body object with proper data
 		}
 		
-		initalizePlayerGun = function(name)
+		initalizePlayerGun = function(name, key)
 		{
-			show_debug_message("gun init started");
 			index = getPartIndex(name);
-			show_debug_message("index got");
 			dataStruct = partData[index];
-			show_debug_message("data struct created");
-			dataStruct.mountOffset = getMountOffset(dataStruct.slotType, setSlotIndex(dataStruct.slotType, dataStruct.name));
-			show_debug_message("offset declared");
+			dataStruct.mountOffset = getMountOffset(dataStruct.slotType, setSlotIndex(dataStruct.slotType, dataStruct.name)); //setup mount offset
+			dataStruct.fireKey = key; //setup weapon group
 			instance_create_layer(600, 600, "PlayerThings", oGun, partData[index]); //creates a gun object with proper data
-			show_debug_message("gun init done");
 		}
 }
 		
@@ -345,5 +347,26 @@
 		            }
 		        }
 		    }
+		}
+		
+		getWepInputs = function(input) //returns true if the supplied key is held down, used to manage weapon groups
+		{
+			if (input = mb_left)
+			{
+				return mouse_check_button( mb_left );
+			}
+			else if (input = mb_right)
+			{
+				return mouse_check_button( mb_right );
+			}
+			else if (input = ord( "Q" ))
+			{
+				return keyboard_check(ord("Q"));
+			}
+			else if (input = ord( "E" ))
+			{
+				return keyboard_check(ord("E"));
+			}
+			show_error("oGlobalData.getWepInputs couldn't find input: " + input, true); //abort if invalid program
 		}
 }

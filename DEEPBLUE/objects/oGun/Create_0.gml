@@ -1,5 +1,6 @@
 id.depth = 600;
 sprite_index = sprite;
+image_speed = 0;
 fireDelayTracker = fireDelayMaster; //tracks frames between shots
 vectPos = [0, 0];
 vectProjectileOffset = [0, 0];
@@ -28,16 +29,18 @@ vectProjectileOffset = [0, 0];
 		
 		shootBullet = function()
 		{
-			if (fireDelayTracker <= 0)
-			{
-				if (mouse_check_button(mb_left))
-				{
-					instance_create_layer(vectProjectileOffset[0], vectProjectileOffset[1], "PlayerThings", projectile, {spread : spread, angle : image_angle});
-					fireDelayTracker = fireDelayMaster;
-				}
-			}
-			else
+			if (fireDelayTracker >= 0) //do trackers
 			{
 				fireDelayTracker -= 1;
+			}
+			if (oGlobalData.getWepInputs(fireKey) && fireDelayTracker <= 0) //shoot bullets
+			{
+				instance_create_layer(vectProjectileOffset[0], vectProjectileOffset[1], "PlayerThings", projectile, {spread : spread, angle : image_angle});
+				fireDelayTracker = fireDelayMaster;
+				image_index = 1;
+			}
+			if (fireDelayTracker <= fireDelayMaster / 2) //handle animation
+			{
+				image_index = 0;
 			}
 		}
