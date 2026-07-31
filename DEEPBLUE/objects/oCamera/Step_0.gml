@@ -10,21 +10,12 @@ if !instance_exists(oLegs) exit;
 //Get camera size
 
 
-zoomTarget = 1 + (0.02 * oGlobalData.vectLength(oLegs.vectVelocity));
+zoomTarget = 1 + (0.04 * oGlobalData.vectLength(oLegs.vectVelocity));
 
 zoomSpeed = oGlobalData.symmetricalSQRT(zoomTarget - zoomSmooth) / 30;
 
 zoomSmooth += zoomSpeed;
-/*
-if (zoomTarget > zoomSmooth) //zoom out to target zoom
-{
-	zoomSmooth += zoomSpeed;
-}
-if (zoomTarget < zoomSmooth) //zoom in to target zoom if not moving
-{
-	zoomSmooth -= zoomSpeed;
-}
-*/
+
 if (abs(zoomTarget-zoomSmooth) < zoomSpeed) //snap to target zoom if closer than one step
 {
 	zoomSmooth = zoomTarget;

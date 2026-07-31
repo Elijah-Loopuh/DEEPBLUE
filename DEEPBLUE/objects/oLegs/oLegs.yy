@@ -9,8 +9,8 @@
   "name":"oLegs",
   "overriddenProperties":[],
   "parent":{
-    "name":"Physical",
-    "path":"folders/Objects/Physical.yy",
+    "name":"Player",
+    "path":"folders/Objects/Physical/Player.yy",
   },
   "parentObjectId":null,
   "persistent":true,

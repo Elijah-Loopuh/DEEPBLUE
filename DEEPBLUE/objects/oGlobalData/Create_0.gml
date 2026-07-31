@@ -108,11 +108,13 @@
 		];
 
 		
-		equippedLegs = "default leg"; //stores the name of frame peices equipped
-		equippedBody = "default body";
+		equippedLegs = "fast leg"; //stores the name of frame peices equipped
+		equippedBody = "fast body";
 		
 		equippedGuns = [["middle mg", mb_left], ["middle mg", mb_left], ["shotgun", mb_right]];
 }
+
+
 //functions
 
 	//vector  functions
@@ -368,10 +370,6 @@
 			{
 			
 				dataStruct.mountOffset = getMountOffset(slotType, slotIndex); //setup mount offset & equip weapon in slot
-			
-				show_debug_message(slotType);
-				show_debug_message(slotIndex);
-				show_debug_message(name);
 			
 				fillSlot(slotType, slotIndex, name); //fills the designated slot with this weapon's name
 			
