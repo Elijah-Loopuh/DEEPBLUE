@@ -32,11 +32,13 @@
 				mainOffsets: [[16, 0]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
 				auxOffsets: [[-11, -7], [-11, 7]], 
 				defOffsets: [[-20, 0]],
+				hpMax : 100, 
+				gimmick : "none", 
 			}, 
 			{ //fast leg
 				name : "fast leg", 
-				regularGrip : 4.0, //regular grip
-				sprintGrip : 2.0,  //lower grip for sprinting
+				regularGrip : 8.0, //regular grip
+				sprintGrip : 3.0,  //lower grip for sprinting
 				regularSpeedCap : 30,
 				sprintSpeedCap : 50,
 				dragStatic : 0.30, //drag when no buttons held
@@ -55,7 +57,34 @@
 				mainOffsets: [[]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
 				auxOffsets: [[-11, -17]], 
 				defOffsets: [[-1, 17]],
+				hpMax : 50, 
+				gimmick : "none", 
 			}, 
+			{ //stealth leg
+				name : "stealth leg", 
+				regularGrip : 0.75, //regular grip
+				sprintGrip : 0.5,  //lower grip for sprinting
+				regularSpeedCap : 15,
+				sprintSpeedCap : 30,
+				dragStatic : 0.07, //drag when no buttons held
+				dragDynamic : 0.0,//drag when movement buttons are held
+				dashPower : 35, //dash speed
+				dashCooldownMaster : 60*1, //# of frames between dash initiations
+				dashDurationMaster : 60*0.20,
+				sprite : sStealthLegs
+			}, 
+			{ //stealth body
+				name : "stealth body", 
+				main : [0, -1, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
+				aux : [0, -1, -1, -1, -1], 
+				def : [0, -1, -1, -1, -1], 
+				sprite : sStealthBody, 
+				mainOffsets: [[0, -14]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
+				auxOffsets: [[0, 14]], 
+				defOffsets: [[-14, 0]],
+				hpMax : 75, 
+				gimmick : "stealth", 
+			},
 			{ //middle mg
 				name : "middle mg", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
@@ -220,7 +249,7 @@
 			show_error("oGlobalData.getPartIndex couldn't find part name: " + name, true); //abort if invalid name
 		}
 		
-		setSlotIndex = function(slotName, wepName) //returns the index of the lowest unoccupied slot, and marks it occupied by that weapon
+		getSlotIndex = function(slotName) //returns the index of the lowest unoccupied slot (-1 if all slots full)
 		{
 			if (slotName == "main") //looks for right type of slot
 			{
@@ -228,11 +257,13 @@
 				{
 					if (partData[getPartIndex(equippedBody)].main[i] == 0) //makes sure slot is valid
 					{
-						partData[getPartIndex(equippedBody)].main[i] = wepName;
 						return i;
 					}
+					if (partData[getPartIndex(equippedBody)].main[i] == -1) //return -1 if all slots are full
+					{
+						return -1;
+					}
 				}
-				i = 0;
 			}
 			if (slotName == "aux")
 			{
@@ -240,8 +271,11 @@
 				{
 					if (partData[getPartIndex(equippedBody)].aux[i] == 0)
 					{
-						partData[getPartIndex(equippedBody)].aux[i] = wepName;
 						return i;
+					}
+					if (partData[getPartIndex(equippedBody)].main[i] == -1)
+					{
+						return -1;
 					}
 				}
 			}
@@ -251,12 +285,44 @@
 				{
 					if (partData[getPartIndex(equippedBody)].def[i] == 0)
 					{
-						partData[getPartIndex(equippedBody)].aux[i] = wepName;
 						return i;
+					}
+					if (partData[getPartIndex(equippedBody)].main[i] == -1)
+					{
+						return -1;
 					}
 				}
 			}
-			show_error("oGlobalData.getSlotIndex couldn't find slot type: " + slotName, true); //abort if invalid name
+			show_error("oGlobalData.setSlotIndex couldn't find slot type: " + slotName, true); //abort if invalid name
+		}
+		
+		fillSlot = function(slotName, index, wepName) //fills slot with weapon name, marking it as full
+		{			
+			if (slotName == "main") //looks for right type of slot
+			{
+				if (partData[getPartIndex(equippedBody)].main[index] == 0) //makes sure slot is valid
+				{
+					partData[getPartIndex(equippedBody)].main[index] = wepName;
+					return;
+				}
+			}
+			if (slotName == "aux")
+			{
+				if (partData[getPartIndex(equippedBody)].aux[index] == 0)
+				{
+					partData[getPartIndex(equippedBody)].aux[index] = wepName;
+					return;
+				}
+			}
+			if (slotName == "def")
+			{
+				if (partData[getPartIndex(equippedBody)].def[index] == 0)
+				{
+					partData[getPartIndex(equippedBody)].aux[index] = wepName;
+					return;
+				}
+			}
+			show_error("oGlobalData.fillSlot couldn't find slot type: " + slotName, true); //abort if invalid slot
 		}
 		
 		getMountOffset = function(slotName, index)
@@ -290,11 +356,29 @@
 		
 		initalizePlayerGun = function(name, key)
 		{
-			index = getPartIndex(name);
-			dataStruct = partData[index];
-			dataStruct.mountOffset = getMountOffset(dataStruct.slotType, setSlotIndex(dataStruct.slotType, dataStruct.name)); //setup mount offset
-			dataStruct.fireKey = key; //setup weapon group
-			instance_create_layer(600, 600, "PlayerThings", oGun, partData[index]); //creates a gun object with proper data
+			partIndex = getPartIndex(name); //stores the index of the globalData array entry for this part
+			
+			dataStruct = partData[partIndex]; //duplicate data structure from the globalData array
+			
+			slotType = dataStruct.slotType; //stores the slot type of this equipment (main, aux, def)
+			
+			slotIndex = getSlotIndex(slotType); //gets the equipment slot index in the oBody data that will hold this weapon
+			
+			if (slotIndex != -1) //only initialize the gun if there is a valid slot to put it in
+			{
+			
+				dataStruct.mountOffset = getMountOffset(slotType, slotIndex); //setup mount offset & equip weapon in slot
+			
+				show_debug_message(slotType);
+				show_debug_message(slotIndex);
+				show_debug_message(name);
+			
+				fillSlot(slotType, slotIndex, name); //fills the designated slot with this weapon's name
+			
+				dataStruct.fireKey = key; //setup weapon group
+			
+				instance_create_layer(600, 600, "PlayerThings", oGun, partData[partIndex]); //creates a gun object with proper data
+			}
 		}
 }
 		
@@ -368,5 +452,18 @@
 				return keyboard_check(ord("E"));
 			}
 			show_error("oGlobalData.getWepInputs couldn't find input: " + input, true); //abort if invalid program
+		}
+		
+		symmetricalSQRT = function(input) //mirrors sqrt over x & y axes to give negative results for negative inputs. (kinda looks like a sigmoid, IS NOT A SIGMOID)
+		{
+			if (input >= 0) //normal sqrt
+			{
+				return sqrt(input);
+			}
+			
+			if (input < 0) //inverse sqrt
+			{
+				return -sqrt(-input);
+			}
 		}
 }

@@ -59,6 +59,8 @@
     {"id":{"name":"sMiddleMachineGun","path":"sprites/sMiddleMachineGun/sMiddleMachineGun.yy",},},
     {"id":{"name":"sNoTexture","path":"sprites/sNoTexture/sNoTexture.yy",},},
     {"id":{"name":"sShotGun","path":"sprites/sShotGun/sShotGun.yy",},},
+    {"id":{"name":"sStealthBody","path":"sprites/sStealthBody/sStealthBody.yy",},},
+    {"id":{"name":"sStealthLegs","path":"sprites/sStealthLegs/sStealthLegs.yy",},},
     {"id":{"name":"sTempArrow","path":"sprites/sTempArrow/sTempArrow.yy",},},
     {"id":{"name":"sWallTexture","path":"sprites/sWallTexture/sWallTexture.yy",},},
   ],

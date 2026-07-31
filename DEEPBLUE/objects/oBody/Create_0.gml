@@ -1,6 +1,7 @@
 id.depth = 700;
 sprite_index = sprite;
 vectPos = [0, 0];
+hp = hpMax;
 	//function definitions
 
 		faceToMouse = function() //points to mouse
