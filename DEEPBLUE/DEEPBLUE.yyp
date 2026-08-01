@@ -54,6 +54,7 @@
     {"id":{"name":"oWallMarker","path":"objects/oWallMarker/oWallMarker.yy",},},
     {"id":{"name":"rMenu","path":"rooms/rMenu/rMenu.yy",},},
     {"id":{"name":"rTestingRoom","path":"rooms/rTestingRoom/rTestingRoom.yy",},},
+    {"id":{"name":"sBrawlerLegs","path":"sprites/sBrawlerLegs/sBrawlerLegs.yy",},},
     {"id":{"name":"sButtonBase","path":"sprites/sButtonBase/sButtonBase.yy",},},
     {"id":{"name":"sDefaultBody","path":"sprites/sDefaultBody/sDefaultBody.yy",},},
     {"id":{"name":"sDefaultLegs","path":"sprites/sDefaultLegs/sDefaultLegs.yy",},},
