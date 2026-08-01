@@ -8,8 +8,8 @@
   "name":"oShotGunShell",
   "overriddenProperties":[],
   "parent":{
-    "name":"bullets",
-    "path":"folders/Objects/Physical/bullets.yy",
+    "name":"Bullets",
+    "path":"folders/Objects/Physical/Bullets.yy",
   },
   "parentObjectId":null,
   "persistent":false,

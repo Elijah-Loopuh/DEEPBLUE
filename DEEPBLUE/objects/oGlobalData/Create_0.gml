@@ -1,5 +1,5 @@
 
-
+randomise();
 //data structures
 {
 		collisionList = //contains a list of collidable objects
@@ -88,22 +88,46 @@
 			{ //middle mg
 				name : "middle mg", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
-				fireDelayMaster : 0.08 * 60, //frames between shots = 1 / (RPM / 60)
+				fireDelayMaster : 0.13 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oMiddleBullet, //single bullet projectile
 				projectileOffest : [32, -1], //pixel offset from sprite origin
 				spread : 2, //spread in degrees
 				sprite : sMiddleMachineGun, 
-				mountOffset : [0, 0] //filled in when gun is assigned to a slot. placeholder
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [50, 0]
 			}, 
+			{ //middle rifle
+				name : "middle rifle", //used for easier handling
+				slotType : "aux", //used to figure out slot type 
+				fireDelayMaster : 1.5 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oRifleBullet, //single bullet projectile
+				projectileOffest : [33, 0], //pixel offset from sprite origin
+				spread : 0, //spread in degrees
+				sprite : sMiddleRifle, 
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [100, 0]
+			},
 			{ //shotgun
 				name : "shotgun", //used for easier handling
 				slotType : "main", //used to figure out slot type 
-				fireDelayMaster : 0.5 * 60, //frames between shots = 1 / (RPM / 60)
+				fireDelayMaster : 0.75 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oShotGunShell, //invisible handler spawns multiple bullets
 				projectileOffest : [38, 0], //pixel offset from sprite origin to spawn bullets at
 				spread : 5, //spread in degrees
 				sprite : sShotGun, 
-				mountOffset : [0, 0] //filled in when gun is assigned to a slot. placeholder
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [35, 0]
+			}, 
+			{ //flamethrower
+				name : "flamethrower", //used for easier handling
+				slotType : "main", //used to figure out slot type 
+				fireDelayMaster : 0.01 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oFlameBullet, //single bullet projectile
+				projectileOffest : [37, 0], //pixel offset from sprite origin
+				spread : 15, //spread in degrees
+				sprite : sFlameThrower, 
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [20, 0] //projectile velocity 
 			}, 
 		];
 
@@ -111,7 +135,7 @@
 		equippedLegs = "fast leg"; //stores the name of frame peices equipped
 		equippedBody = "fast body";
 		
-		equippedGuns = [["middle mg", mb_left], ["middle mg", mb_left], ["shotgun", mb_right]];
+		equippedGuns = [["middle mg", mb_left], ["middle rifle", ord("Q")], ["shotgun", mb_right]];
 }
 
 

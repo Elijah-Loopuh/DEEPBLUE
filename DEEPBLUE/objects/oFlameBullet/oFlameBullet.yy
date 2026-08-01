@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"oMiddleBullet",
+  "%Name":"oFlameBullet",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oMiddleBullet",
+  "name":"oFlameBullet",
   "overriddenProperties":[],
   "parent":{
     "name":"Bullets",
@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sMiddleBullet",
-    "path":"sprites/sMiddleBullet/sMiddleBullet.yy",
+    "name":"sFlameProjectile",
+    "path":"sprites/sFlameProjectile/sFlameProjectile.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -1,19 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"oMiddleBullet",
+  "%Name":"oRifleBullet",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oMiddleBullet",
+  "name":"oRifleBullet",
   "overriddenProperties":[],
   "parent":{
     "name":"Bullets",
     "path":"folders/Objects/Physical/Bullets.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oMiddleBullet",
+    "path":"objects/oMiddleBullet/oMiddleBullet.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -32,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sMiddleBullet",
-    "path":"sprites/sMiddleBullet/sMiddleBullet.yy",
+    "name":"sRifleBullet",
+    "path":"sprites/sRifleBullet/sRifleBullet.yy",
   },
   "spriteMaskId":null,
   "visible":true,

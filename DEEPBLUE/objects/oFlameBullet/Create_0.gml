@@ -21,4 +21,5 @@ checkCollision = function()
 
 setupBullet();
 
-alarm[0] = 60*1;
+alarm[0] = 60*random_range(0.8, 1.2);
+image_angle = -oGlobalData.vectAngle(vectVelocity);
