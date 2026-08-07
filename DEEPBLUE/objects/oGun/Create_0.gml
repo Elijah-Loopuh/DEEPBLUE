@@ -1,4 +1,4 @@
-id.depth = 600;
+id.depth = 450;
 sprite_index = sprite;
 image_speed = 0;
 fireDelayTracker = fireDelayMaster; //tracks frames between shots

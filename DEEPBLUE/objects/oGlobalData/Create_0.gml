@@ -105,7 +105,7 @@ randomise();
 				spread : 0, //spread in degrees
 				sprite : sMiddleRifle, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [100, 0]
+				vectVelocity : [150, 0]
 			},
 			{ //shotgun
 				name : "shotgun", //used for easier handling
@@ -135,7 +135,7 @@ randomise();
 		equippedLegs = "fast leg"; //stores the name of frame peices equipped
 		equippedBody = "fast body";
 		
-		equippedGuns = [["middle mg", mb_left], ["middle rifle", ord("Q")], ["shotgun", mb_right]];
+		equippedGuns = [["middle mg", ord("E")], ["middle rifle", ord("Q")], ["flamethrower", mb_left]];
 }
 
 

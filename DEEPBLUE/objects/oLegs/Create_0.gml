@@ -261,9 +261,13 @@ handleSprint = function()
 	}
 }
 
-handleAnimation = function() //handles animation speed multiplier
+handleAnimation = function()
 {
 	image_speed = oGlobalData.vectLength(vectVelocity) * animationSpeed;
+	if (oGlobalData.vectLength(vectVelocity) == 0)
+	{
+		image_index = 0;
+	}
 }
 
 move = function() //moves on x & y axes

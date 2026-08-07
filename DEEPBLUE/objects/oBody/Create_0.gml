@@ -1,4 +1,4 @@
-id.depth = 700;
+id.depth = 500;
 sprite_index = sprite;
 vectPos = [0, 0];
 hp = hpMax;
