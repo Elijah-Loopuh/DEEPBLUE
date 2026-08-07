@@ -16,6 +16,8 @@ setAngle();
 
 handleCollisionNew();
 
+handleAnimation();
+
 move();
 
 

@@ -25,8 +25,9 @@ vectPos = [x, y]; //tracks position
 //variable assigning
 grip = regularGrip; //rate of change of vectVelocity axis under normal conditions
 speedCap = regularSpeedCap; //tracks current speed cap
-drag = dragStatic; //fraction d/1 of speed lost every frame
-dashCooldown = dashCooldownMaster; //tracker for cooldown
+drag = dragStatic; //fraction d/1 of speed lost every 
+dashCooldown = dashCooldownMaster;
+animationSpeed = 1/45; //multiplier from vectVelocity scale to animation fps
 
 
 updateVars = function() //updates variables
@@ -260,38 +261,13 @@ handleSprint = function()
 	}
 }
 
+handleAnimation = function() //handles animation speed multiplier
+{
+	image_speed = oGlobalData.vectLength(vectVelocity) * animationSpeed;
+}
+
 move = function() //moves on x & y axes
 {
 	x += vectVelocity[0];
 	y += vectVelocity[1];
-}
-
-{ //old initialization code
-/*
-vectVelocity = [0, 0]; //tracks 2d Velocity
-vectMoveInput = [0, 0]; //tracks 2d inputs
-
-
-regularGrip = 1.25; //regular grip
-sprintGrip = 1.0; //lower grip for sprinting
-grip = regularGrip; //rate of change of vectVelocity axis under normal conditions
-
-regularSpeedCap = 15;
-sprintSpeedCap = 35;
-speedCap = regularSpeedCap; //tracks current speed cap
-
-snapSpeed = 0.5;
-
-
-dragStatic = 0.15; //drag when no buttons held
-dragDynamic = 0.0;//drag when movement buttons are held
-drag = dragStatic; //fraction d/1 of speed lost every frame
-
-
-dashPower = 50; //dash speed
-dashCooldownMaster = 60*0.5; //# of frames between dashes
-dashCooldown = dashCooldownMaster; //tracker for cooldown
-dashDurationMaster = 60*0.25;
-dashDuration = 0;
-*/
 }

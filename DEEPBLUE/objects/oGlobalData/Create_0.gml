@@ -46,17 +46,17 @@ randomise();
 				dashPower : 75, //dash speed
 				dashCooldownMaster : 60*0.25, //# of frames between dash initiations
 				dashDurationMaster : 60*0.25,
-				sprite : sFastLegs
+				sprite : sFastLegsNew
 			}, 
 			{ //fast body
 				name : "fast body", 
 				main : [-1, -1, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
 				aux : [0, -1, -1, -1, -1], 
 				def : [0, -1, -1, -1, -1], 
-				sprite : sFastBody, 
+				sprite : sFastBodyNew, 
 				mainOffsets: [[]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
-				auxOffsets: [[-11, -17]], 
-				defOffsets: [[-1, 17]],
+				auxOffsets: [[-24, -11]], 
+				defOffsets: [[-24, 11]],
 				hpMax : 50, 
 				gimmick : "none", 
 			}, 
@@ -85,31 +85,6 @@ randomise();
 				hpMax : 75, 
 				gimmick : "stealth", 
 			},
-			{ //brawler leg
-				name : "brawler leg", 
-				regularGrip : 1.25, //regular grip
-				sprintGrip : 1.0,  //lower grip for sprinting
-				regularSpeedCap : 15,
-				sprintSpeedCap : 35,
-				dragStatic : 0.15, //drag when no buttons held
-				dragDynamic : 0.0,//drag when movement buttons are held
-				dashPower : 50, //dash speed
-				dashCooldownMaster : 60*0.75, //# of frames between dashes
-				dashDurationMaster : 60*0.25,
-				sprite : sDefaultLegs
-			}, 
-			{ //brawler body
-				name : "brawler body", 
-				main : [0, -1, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
-				aux : [0, 0, -1, -1, -1], 
-				def : [0, -1, -1, -1, -1], 
-				sprite : sDefaultBody, 
-				mainOffsets: [[16, 0]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
-				auxOffsets: [[-11, -7], [-11, 7]], 
-				defOffsets: [[-20, 0]],
-				hpMax : 100, 
-				gimmick : "none", 
-			}, 
 			{ //middle mg
 				name : "middle mg", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
