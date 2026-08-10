@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"oGunButton",
+  "%Name":"oUiCreator",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oGunButton",
+  "name":"oUiCreator",
   "overriddenProperties":[],
   "parent":{
-    "name":"Ui",
-    "path":"folders/Objects/Technical/Ui.yy",
+    "name":"Technical",
+    "path":"folders/Objects/Technical.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -1,17 +1,21 @@
 {
   "$GMObject":"",
-  "%Name":"oGunButton",
+  "%Name":"oEnemyBlue",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oGunButton",
+  "name":"oEnemyBlue",
   "overriddenProperties":[],
   "parent":{
-    "name":"Ui",
-    "path":"folders/Objects/Technical/Ui.yy",
+    "name":"Enemy",
+    "path":"folders/Objects/Physical/Enemy.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oEnemyParent",
+    "path":"objects/oEnemyParent/oEnemyParent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -29,7 +33,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"sEnemyTempBlue",
+    "path":"sprites/sEnemyTempBlue/sEnemyTempBlue.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

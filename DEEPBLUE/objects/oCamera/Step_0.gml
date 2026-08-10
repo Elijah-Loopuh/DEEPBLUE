@@ -1,3 +1,5 @@
+//show_debug_message("oCamera: room: " + string(room));
+
 //Fullscreen toggle
 if keyboard_check_pressed(vk_f8) 
 { 
@@ -5,7 +7,21 @@ if keyboard_check_pressed(vk_f8)
 }
 
 //Exit if there is no player
-if !instance_exists(oLegs) exit;
+if !instance_exists(oLegs)
+{
+	//show_debug_message("noPlayer");
+	camWidth = camera_get_view_width(view_camera[0]);
+	camHeight = camera_get_view_height(view_camera[0]);
+
+
+	//Get camera target coordinates
+	var camX = room_width/2 - camWidth/2;
+	var camY = room_height/2 - camHeight/2;
+
+	camera_set_view_pos(view_camera[0], camX, camY); //go to target coords
+	
+	exit;
+}
 
 //Get camera size
 

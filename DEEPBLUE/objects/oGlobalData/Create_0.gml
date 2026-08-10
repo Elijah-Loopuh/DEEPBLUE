@@ -6,7 +6,18 @@ randomise();
 		[
 			oWall, 
 		];
+		
+		
+		enemyList = //list of targetable objects
+		[
+			oEnemyParent, 
+		];
 
+		currentSlotData = //stores data used to put guns in slots for the player
+		{
+			slotType : "", 
+			slotIndex : 0, 
+		};
 
 		partData = //data for all parts
 		[
@@ -35,6 +46,7 @@ randomise();
 				hpMax : 100, 
 				gimmick : "none", 
 			}, 
+			
 			{ //fast leg
 				name : "fast leg", 
 				regularGrip : 8.0, //regular grip
@@ -60,6 +72,7 @@ randomise();
 				hpMax : 50, 
 				gimmick : "none", 
 			}, 
+			
 			{ //stealth leg
 				name : "stealth leg", 
 				regularGrip : 0.75, //regular grip
@@ -85,6 +98,7 @@ randomise();
 				hpMax : 75, 
 				gimmick : "stealth", 
 			},
+			
 			{ //middle mg
 				name : "middle mg", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
@@ -107,6 +121,7 @@ randomise();
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [150, 0]
 			},
+			
 			{ //shotgun
 				name : "shotgun", //used for easier handling
 				slotType : "main", //used to figure out slot type 
@@ -132,10 +147,15 @@ randomise();
 		];
 
 		
-		equippedLegs = "fast leg"; //stores the name of frame peices equipped
-		equippedBody = "fast body";
+		equippedLegs = "default leg"; //stores the name of frame peices equipped
+		equippedBody = "default body";
 		
-		equippedGuns = [["middle mg", ord("E")], ["middle rifle", ord("Q")], ["flamethrower", mb_left]];
+		equippedGuns = 
+		[
+			["middle mg", mb_right], 
+			["middle rifle", ord("Q")], 
+			["flamethrower", mb_left]
+		];
 }
 
 
@@ -326,7 +346,7 @@ randomise();
 		{			
 			if (slotName == "main") //looks for right type of slot
 			{
-				if (partData[getPartIndex(equippedBody)].main[index] == 0) //makes sure slot is valid
+				if (partData[getPartIndex(equippedBody)].main[index] != -1) //makes sure slot is valid
 				{
 					partData[getPartIndex(equippedBody)].main[index] = wepName;
 					return;
@@ -334,7 +354,7 @@ randomise();
 			}
 			if (slotName == "aux")
 			{
-				if (partData[getPartIndex(equippedBody)].aux[index] == 0)
+				if (partData[getPartIndex(equippedBody)].aux[index] != -1)
 				{
 					partData[getPartIndex(equippedBody)].aux[index] = wepName;
 					return;
@@ -342,7 +362,7 @@ randomise();
 			}
 			if (slotName == "def")
 			{
-				if (partData[getPartIndex(equippedBody)].def[index] == 0)
+				if (partData[getPartIndex(equippedBody)].def[index] != -1)
 				{
 					partData[getPartIndex(equippedBody)].aux[index] = wepName;
 					return;
@@ -380,7 +400,7 @@ randomise();
 			instance_create_layer(0, 0, "PlayerThings", oBody, partData[index]); //creates a body object with proper data
 		}
 		
-		initalizePlayerGun = function(name, key)
+		initalizePlayerGun = function(name, key, index = -1) //if index is supplied, will skip check and overwrite that index with the weapon
 		{
 			partIndex = getPartIndex(name); //stores the index of the globalData array entry for this part
 			
@@ -388,7 +408,14 @@ randomise();
 			
 			slotType = dataStruct.slotType; //stores the slot type of this equipment (main, aux, def)
 			
-			slotIndex = getSlotIndex(slotType); //gets the equipment slot index in the oBody data that will hold this weapon
+			if (index = -1) //placeholder value
+			{
+				slotIndex = getSlotIndex(slotType); //gets the equipment slot index in the oBody data that will hold this weapon
+			}
+			else
+			{
+				slotIndex = index; //uses player selected index
+			}
 			
 			if (slotIndex != -1) //only initialize the gun if there is a valid slot to put it in
 			{
@@ -487,5 +514,28 @@ randomise();
 			{
 				return -sqrt(-input);
 			}
+		}
+		
+		drawTextFull = function(x, y, string, font, c1 = c_red, hAlign = fa_center, vAlign = fa_center, xScale = 1, yScale = 1, alpha = 1, draw_angle = 0, c2 = -1, c3 = -1, c4 = -1)
+		{
+			/*default properties
+				no rescale
+				red, no graident
+				center align
+				no angle
+				no transparency
+			*/
+			if (c2 == -1 || c3 == -1 || c4 == -1) //handle default coloring
+			{
+				c2 = c1;
+				c3 = c1;
+				c4 = c1;
+			}
+			
+			draw_set_halign(hAlign);
+			draw_set_valign(vAlign);
+			draw_set_font(font);
+			
+			draw_text_transformed_colour(x, y, string, xScale, yScale, draw_angle, c1, c2, c3, c4, alpha);
 		}
 }
