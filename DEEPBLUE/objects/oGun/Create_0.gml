@@ -3,15 +3,17 @@ sprite_index = sprite;
 image_speed = 0;
 fireDelayTracker = fireDelayMaster; //tracks frames between shots
 vectPos = [0, 0];
-vectProjectileOffset = [0, 0];
+ 
 
 	//functions
 		
 		faceToMouse = function() //points to mouse
 		{
 			vectPos = [x, y];
-			vectMouse = [mouse_x, mouse_y];
-			image_angle = - oGlobalData.vectAngle(oGlobalData.vectSum(oGlobalData.vectInvert(vectPos),vectMouse));
+			distance = oGlobalData.vectLength(oGlobalData.vectSum(vectPos, oGlobalData.vectInvert(oBasicEnemy.vectPos))); //distance from gun to target
+			lead = oGlobalData.vectScale(oBasicEnemy.vectVelocity, distance/oGlobalData.vectLength(vectVelocity)); //displacement from target to aim point
+			vectTarget = oGlobalData.vectSum(oBasicEnemy.vectPos, lead); //add calculated lead to enemy position to get aim point
+			image_angle = - oGlobalData.vectAngle(oGlobalData.vectSum(oGlobalData.vectInvert(vectPos),vectTarget));
 		}
 		
 		setPosition = function()
@@ -35,7 +37,7 @@ vectProjectileOffset = [0, 0];
 			}
 			if (oGlobalData.getWepInputs(fireKey) && fireDelayTracker <= 0) //shoot bullets
 			{
-				instance_create_layer(vectProjectileOffset[0], vectProjectileOffset[1], "PlayerThings", projectile, {spread : spread, angle : image_angle, vectVelocity, vectVelocity});
+				instance_create_layer(vectProjectileOffset[0], vectProjectileOffset[1], "PlayerThings", projectile, {spread : spread, angle : image_angle, vectVelocity: vectVelocity});
 				fireDelayTracker = fireDelayMaster;
 				image_index = 1;
 			}

@@ -5,7 +5,7 @@ setupBullet = function()
 	image_angle = angle; //face aimed angle
 	image_angle += random_range(-spread, spread); //spread
 	vectVelocity = oGlobalData.vectRotate(vectVelocity, -image_angle); //setup vector for direction
-	vectVelocity = oGlobalData.vectSum(vectVelocity, oLegs.vectVelocity); //add player velocity to bullet velocity
+	//vectVelocity = oGlobalData.vectSum(vectVelocity, oLegs.vectVelocity); //add player velocity to bullet velocity
 }
 
 checkCollision = function()

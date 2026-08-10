@@ -168,8 +168,8 @@ randomise();
 		{
 			return sqrt(sqr(vect1[0]) + sqr(vect1[1]));
 		}
-
-		vectClamp = function (vect1, scalar = 1) //returns vect1 with length scalar, unless vect1 is [0, 0]. if no scalar, returns a unit vector
+ 
+		vectClamp = function (vect1, scalar = 1) //returns vect1 with length scalar, unless vect1 is [0, 0]. defaults to unit vector
 		{
 			if (vectLength(vect1) != 0)
 			{

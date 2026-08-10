@@ -46,6 +46,8 @@
     {"id":{"name":"oGlobalData","path":"objects/oGlobalData/oGlobalData.yy",},},
     {"id":{"name":"oGoToRoomButton","path":"objects/oGoToRoomButton/oGoToRoomButton.yy",},},
     {"id":{"name":"oGun","path":"objects/oGun/oGun.yy",},},
+    {"id":{"name":"oGunButton","path":"objects/oGunButton/oGunButton.yy",},},
+    {"id":{"name":"oHullButton","path":"objects/oHullButton/oHullButton.yy",},},
     {"id":{"name":"oLegs","path":"objects/oLegs/oLegs.yy",},},
     {"id":{"name":"oMiddleBullet","path":"objects/oMiddleBullet/oMiddleBullet.yy",},},
     {"id":{"name":"oRifleBullet","path":"objects/oRifleBullet/oRifleBullet.yy",},},
