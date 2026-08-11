@@ -1,1 +1,2 @@
-oGlobalData.drawTextFull(x, y, string, font);
+oGlobalData.drawTextFull(x, y, text, font);
+

@@ -1,0 +1,1 @@
+oGlobalData.drawTextFull(x, y, gun, font);

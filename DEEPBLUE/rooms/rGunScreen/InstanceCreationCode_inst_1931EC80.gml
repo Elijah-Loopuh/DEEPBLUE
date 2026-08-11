@@ -1,0 +1,2 @@
+text = "RETURN";
+targetRoom = rSlotScreen;

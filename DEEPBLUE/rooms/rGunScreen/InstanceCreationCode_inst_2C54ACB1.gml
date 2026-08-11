@@ -1,0 +1,1 @@
+gun = "middle rifle";

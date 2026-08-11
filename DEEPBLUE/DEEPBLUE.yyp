@@ -63,6 +63,7 @@
     {"id":{"name":"oUiCreator","path":"objects/oUiCreator/oUiCreator.yy",},},
     {"id":{"name":"oWall","path":"objects/oWall/oWall.yy",},},
     {"id":{"name":"oWallMarker","path":"objects/oWallMarker/oWallMarker.yy",},},
+    {"id":{"name":"rGunScreen","path":"rooms/rGunScreen/rGunScreen.yy",},},
     {"id":{"name":"rHullScreen","path":"rooms/rHullScreen/rHullScreen.yy",},},
     {"id":{"name":"rSlotScreen","path":"rooms/rSlotScreen/rSlotScreen.yy",},},
     {"id":{"name":"rTestingRoom","path":"rooms/rTestingRoom/rTestingRoom.yy",},},
@@ -94,6 +95,7 @@
     {"roomId":{"name":"rHullScreen","path":"rooms/rHullScreen/rHullScreen.yy",},},
     {"roomId":{"name":"rTestingRoom","path":"rooms/rTestingRoom/rTestingRoom.yy",},},
     {"roomId":{"name":"rSlotScreen","path":"rooms/rSlotScreen/rSlotScreen.yy",},},
+    {"roomId":{"name":"rGunScreen","path":"rooms/rGunScreen/rGunScreen.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
