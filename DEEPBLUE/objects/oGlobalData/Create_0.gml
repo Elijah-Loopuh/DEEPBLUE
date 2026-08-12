@@ -56,7 +56,7 @@ randomise();
 				dragStatic : 0.30, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 75, //dash speed
-				dashCooldownMaster : 60*0.25, //# of frames between dash initiations
+				dashCooldownMaster : 60*0.35, //# of frames between dash initiations
 				dashDurationMaster : 60*0.25,
 				sprite : sFastLegsNew
 			}, 
@@ -108,12 +108,12 @@ randomise();
 				spread : 2, //spread in degrees
 				sprite : sMiddleMachineGun, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [50, 0]
+				vectVelocity : [50, 0] //projectile velocity
 			}, 
 			{ //middle rifle
 				name : "middle rifle", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
-				fireDelayMaster : 1.5 * 60, //frames between shots = 1 / (RPM / 60)
+				fireDelayMaster : 1.0 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oRifleBullet, //single bullet projectile
 				projectileOffest : [33, 0], //pixel offset from sprite origin
 				spread : 0, //spread in degrees
@@ -143,6 +143,17 @@ randomise();
 				sprite : sFlameThrower, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [20, 0] //projectile velocity 
+			}, 
+			{ //flak cannon
+				name : "flak cannon", //used for easier handling
+				slotType : "main", //used to figure out slot type 
+				fireDelayMaster : 1.25 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oFlakShell, //single bullet projectile
+				projectileOffest : [44, 0], //pixel offset from sprite origin
+				spread : 30, //spread in degrees
+				sprite : sFlakCannon, 
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [15, 0] //projectile velocity 
 			}, 
 		];
 
@@ -270,6 +281,16 @@ randomise();
 		vectGetComponent = function(vect1, vect2) //returns the component of vect1 in the vect2 direction
 		{
 			return vectDotProduct(vect1, vectClamp(vect2));
+		}
+		
+		vectAverage = function(vect1, vect2, weight = 0.5) //averages the two vectors passed into it, with optional weight towards 1st vector
+		{
+			output = [0, 0];
+			
+			output = vectSum(output, vectScale(vect1, weight));
+			output = vectSum(output, vectScale(vect2, 1.0 - weight));
+			
+			return output;
 		}
 }
 		

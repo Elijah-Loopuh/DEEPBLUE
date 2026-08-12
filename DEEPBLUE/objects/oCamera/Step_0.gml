@@ -34,23 +34,24 @@ if !instance_exists(oLegs)
 
 //Get camera size
 
+{ //smooth zooming
+	zoomTarget = 1 + (0.04 * oGlobalData.vectLength(oLegs.vectVelocity));
 
-zoomTarget = 1 + (0.04 * oGlobalData.vectLength(oLegs.vectVelocity));
+	if (zoomTarget > zoomSmooth)
+	{
+		zoomSmooth += zoomSpeed;
+	}
+	if (zoomTarget < zoomSmooth)
+	{
+		zoomSmooth -= zoomSpeed;
+	}
+	if (abs(zoomTarget-zoomSmooth) < zoomSpeed) //anti flutter system
+	{
+		zoomSmooth = zoomTarget;
+	}
 
-if (zoomTarget > zoomSmooth)
-{
-	zoomSmooth += zoomSpeed;
+	zoomCurrent += zoomSpeed2 * (zoomSmooth - zoomCurrent);
 }
-if (zoomTarget < zoomSmooth)
-{
-	zoomSmooth -= zoomSpeed;
-}
-if (abs(zoomTarget-zoomSmooth) < zoomSpeed) //anti flutter system
-{
-	zoomSmooth = zoomTarget;
-}
-
-zoomCurrent += zoomSpeed2 * (zoomSmooth - zoomCurrent);
 
 camera_set_view_size(view_camera[0], view_wport[0] * zoomCurrent, view_hport[0] * zoomCurrent); //set camera zoom to zoomsmooth
 
@@ -59,7 +60,13 @@ camHeight = camera_get_view_height(view_camera[0]);
 
 
 //Get camera target coordinates
-var camX = oLegs.x - camWidth/2;
-var camY = oLegs.y - camHeight/2;
+var vectPlayerPos = [oLegs.x, oLegs.y];
+var vectMousePos = [mouse_x, mouse_y];
 
-camera_set_view_pos(view_camera[0], camX, camY); //go to target coords
+//average them together
+var vectCamTarget = oGlobalData.vectAverage(vectPlayerPos, vectMousePos, 0.55);
+
+//account for cam width
+vectCamTarget = oGlobalData.vectSum(vectCamTarget, [- camWidth/2, - camHeight/2]);
+
+camera_set_view_pos(view_camera[0], vectCamTarget[0], vectCamTarget[1]); //go to target coords
