@@ -151,7 +151,6 @@ randomise();
 		equippedBody = "default body";
 }
 
-
 //functions
 
 	//vector  functions
@@ -357,7 +356,7 @@ randomise();
 			{
 				if (partData[getPartIndex(equippedBody)].def[index] != -1)
 				{
-					partData[getPartIndex(equippedBody)].aux[index] = wepStruct;
+					partData[getPartIndex(equippedBody)].def[index] = wepStruct;
 					return;
 				}
 			}
@@ -397,58 +396,52 @@ randomise();
 		{
 			partIndex = getPartIndex(name); //stores the index of the globalData array entry for this part
 			
-			dataStruct = partData[partIndex]; //duplicate data structure from the globalData array
+			var dataStruct = variable_clone(partData[partIndex], 2); //duplicate data structure from the globalData array
 			
 			slotType = dataStruct.slotType; //stores the slot type of this equipment (main, aux, def)
 			
-			if (index = -1) //placeholder value
+			if (index != -1) //only initialize the gun if there is a valid slot to put it in
 			{
-				slotIndex = getSlotIndex(slotType); //gets the equipment slot index in the oBody data that will hold this weapon
-			}
-			else
-			{
-				slotIndex = index; //uses player selected index
-			}
-			
-			if (slotIndex != -1) //only initialize the gun if there is a valid slot to put it in
-			{
-			
-				dataStruct.mountOffset = getMountOffset(slotType, slotIndex); //setup mount offset & equip weapon in slot
+				dataStruct.mountOffset = getMountOffset(slotType, index); //setup mount offset & equip weapon in slot
 				
 				dataStruct.fireKey = key; //setup weapon group
 			
-				fillSlot(slotType, slotIndex, dataStruct); //fills the designated slot with this weapon's name
-			
+				fillSlot(slotType, index, dataStruct); //fills the designated slot with this weapon's name
+				
 				//instance_create_layer(600, 600, "PlayerThings", oGun, partData[partIndex]); //creates a gun object with proper data
 			}
 		}
+		
 		createPlayer = function(x, y) //turns data from partData into real objects in the game world, creating a full player at coords x, y
 		{
 			instance_create_layer(x, y, "PlayerThings", oLegs, partData[oGlobalData.getPartIndex(equippedLegs)]); //creates a leg object with the data from the data list
 			instance_create_layer(x, y, "PlayerThings", oBody, partData[oGlobalData.getPartIndex(equippedBody)]); //creates a body object with the data from the data list
 			
 			//main slots
-			var i = 0;
-			while (oBody.main[i] != -1 && oBody.main[i] != 0) //if slot is filled
+			for (var i = 0; i < array_length(oBody.main); i++)
 			{
-				instance_create_layer(x, y, "PlayerThings", oGun, oBody.main[i]); //creates a gun with the data filled in during character creation
-				i++;
+				if (typeof(oBody.main[i]) == "struct")
+				{
+					instance_create_layer(x, y, "PlayerThings", oGun, oBody.main[i]); //creates a gun with the data filled in during character creation
+				}
 			}
 			
 			//aux slots
-			var i = 0;
-			while (oBody.aux[i] != -1 && oBody.aux[i] != 0) //if slot is filled
+			for (var i = 0; i < array_length(oBody.aux); i++)
 			{
-				instance_create_layer(x, y, "PlayerThings", oGun, oBody.aux[i]); //creates a gun with the data filled in during character creation
-				i++;
+				if (typeof(oBody.aux[i]) == "struct")
+				{
+					instance_create_layer(x, y, "PlayerThings", oGun, oBody.aux[i]); //creates a gun with the data filled in during character creation
+				}
 			}
 			
 			//def slots
-			var i = 0;
-			while (oBody.def[i] != -1 && oBody.def[i] != 0) //if slot is filled
+			for (var i = 0; i < array_length(oBody.def); i++)
 			{
-				instance_create_layer(x, y, "PlayerThings", oGun, oBody.def[i]); //creates a gun with the data filled in during character creation
-				i++;
+				if (typeof(oBody.def[i]) == "struct")
+				{
+					instance_create_layer(x, y, "PlayerThings", oGun, oBody.def[i]); //creates a gun with the data filled in during character creation
+				}
 			}
 		}
 }

@@ -1,4 +1,13 @@
-//show_debug_message("oCamera: room: " + string(room));
+
+/*
+show_debug_message("oCamera: currentSlotData, slotType: " + oGlobalData.currentSlotData.slotType);
+show_debug_message("oCamera: currentSlotData, slotIndex: " + string(oGlobalData.currentSlotData.slotIndex));
+
+//show_debug_message("oCamera: mainSlotData: " + string(oGlobalData.partData[oGlobalData.getPartIndex(oGlobalData.equippedBody)].main));
+show_debug_message("oCamera: auxSlotData: " + string(oGlobalData.partData[oGlobalData.getPartIndex(oGlobalData.equippedBody)].aux));
+//show_debug_message("oCamera: defSlotData: " + string(oGlobalData.partData[oGlobalData.getPartIndex(oGlobalData.equippedBody)].def));
+show_debug_message("\n XXXXXXXXXX \n")
+/**/
 
 //Fullscreen toggle
 if keyboard_check_pressed(vk_f8) 
