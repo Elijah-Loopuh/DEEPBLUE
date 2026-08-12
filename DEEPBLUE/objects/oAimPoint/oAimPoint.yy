@@ -1,17 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"oFlakShell",
+  "%Name":"oAimPoint",
   "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":2,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oFlakShell",
+  "name":"oAimPoint",
   "overriddenProperties":[],
   "parent":{
-    "name":"Bullets",
-    "path":"folders/Objects/Physical/Bullets.yy",
+    "name":"Player",
+    "path":"folders/Objects/Physical/Player.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -32,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sFlakShell",
-    "path":"sprites/sFlakShell/sFlakShell.yy",
+    "name":"sPointOfAim",
+    "path":"sprites/sPointOfAim/sPointOfAim.yy",
   },
   "spriteMaskId":null,
   "visible":true,

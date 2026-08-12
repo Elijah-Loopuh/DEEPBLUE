@@ -1,10 +1,13 @@
 draw depths descending order
 	background 1000
+	enemies 800
 	player legs 750
 	walls 600
 	player torso 500
 	projectiles 475
 	guns  450
+	lock box 100
+	aim point 0
 
 practices
 	when possible use functions so that it is easy to reorder actions in each frame

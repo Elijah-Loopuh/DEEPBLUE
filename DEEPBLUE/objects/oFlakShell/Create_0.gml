@@ -13,7 +13,7 @@ checkCollision = function()
 	{
 		for (var j = 0; j < 8; j ++) //spawn a bunch of flak
 		{
-			instance_create_layer(x, y, "PlayerThings", oMiddleBullet, {spread : 180, angle : 0, vectVelocity : [15, 0]})
+			instance_create_layer(x, y, "PlayerThings", oMiddleBullet, {spread : 180, angle : 0, vectVelocity : [20, 0]})
 		}
 		instance_destroy(id);
 	}
@@ -21,4 +21,4 @@ checkCollision = function()
 
 setupBullet();
 
-alarm[0] = 60*1;
+alarm[0] = 60*3;

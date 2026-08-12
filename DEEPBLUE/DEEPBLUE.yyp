@@ -42,6 +42,7 @@
   "resources":[
     {"id":{"name":"fDefaultFont","path":"fonts/fDefaultFont/fDefaultFont.yy",},},
     {"id":{"name":"fPixelFont","path":"fonts/fPixelFont/fPixelFont.yy",},},
+    {"id":{"name":"oAimPoint","path":"objects/oAimPoint/oAimPoint.yy",},},
     {"id":{"name":"oBody","path":"objects/oBody/oBody.yy",},},
     {"id":{"name":"oCamera","path":"objects/oCamera/oCamera.yy",},},
     {"id":{"name":"oEnemyBlue","path":"objects/oEnemyBlue/oEnemyBlue.yy",},},
@@ -85,6 +86,7 @@
     {"id":{"name":"sMiddleMachineGun","path":"sprites/sMiddleMachineGun/sMiddleMachineGun.yy",},},
     {"id":{"name":"sMiddleRifle","path":"sprites/sMiddleRifle/sMiddleRifle.yy",},},
     {"id":{"name":"sNoTexture","path":"sprites/sNoTexture/sNoTexture.yy",},},
+    {"id":{"name":"sPointOfAim","path":"sprites/sPointOfAim/sPointOfAim.yy",},},
     {"id":{"name":"sRifleBullet","path":"sprites/sRifleBullet/sRifleBullet.yy",},},
     {"id":{"name":"sShotGun","path":"sprites/sShotGun/sShotGun.yy",},},
     {"id":{"name":"sStealthBody","path":"sprites/sStealthBody/sStealthBody.yy",},},

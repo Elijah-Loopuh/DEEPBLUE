@@ -2,6 +2,8 @@
 vectPos = [0, 0]; //stores the location for guns to aim at
 vectVelocity = [0, 0]; //stores the motion for leading shots
 
+id.depth = 100;
+
 goToMouse = function() //snap to mouse every frame
 {
 	x = mouse_x;

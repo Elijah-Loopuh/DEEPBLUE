@@ -76,10 +76,14 @@ updateVectorMoveInput = function ()
 
 updateVelocityVector = function()
 {
-	if (underSpeed) //take away control when over speedCap
+	if (underSpeed) //give control when under speedcap
 	{
 		vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectScale(vectMoveInput, grip)); //modifies velocity with move input
-		vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //cap speed under normal circumstances
+		
+	}
+	else //cap speed when over speed
+	{
+		
 	}
 }
 
@@ -88,6 +92,7 @@ applyDrag = function() //drag is proportional to velocity, soft caps at drag/gri
 	if (keyMove && underSpeed) //low grip when move inputs allowed
 	{
 		drag = dragDynamic;
+		vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //cap speed under normal circumstances
 	}
 	else //high drag when no input allowed
 	{

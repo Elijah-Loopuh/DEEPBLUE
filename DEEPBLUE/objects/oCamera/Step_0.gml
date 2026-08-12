@@ -58,7 +58,6 @@ camera_set_view_size(view_camera[0], view_wport[0] * zoomCurrent, view_hport[0] 
 camWidth = camera_get_view_width(view_camera[0]);
 camHeight = camera_get_view_height(view_camera[0]);
 
-
 //Get camera target coordinates
 var vectPlayerPos = [oLegs.x, oLegs.y];
 var vectMousePos = [mouse_x, mouse_y];
@@ -69,4 +68,9 @@ var vectCamTarget = oGlobalData.vectAverage(vectPlayerPos, vectMousePos, 0.55);
 //account for cam width
 vectCamTarget = oGlobalData.vectSum(vectCamTarget, [- camWidth/2, - camHeight/2]);
 
-camera_set_view_pos(view_camera[0], vectCamTarget[0], vectCamTarget[1]); //go to target coords
+//set cam to a position
+x += (vectCamTarget[0] - x) / 3;
+y += (vectCamTarget[1] - y) / 3;
+
+
+camera_set_view_pos(view_camera[0], x, y); //go to target coords

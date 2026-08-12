@@ -1,4 +1,4 @@
-id.depth = 0;
+id.depth = 800;
 
 hpMax = 100;
 hp = hpMax;

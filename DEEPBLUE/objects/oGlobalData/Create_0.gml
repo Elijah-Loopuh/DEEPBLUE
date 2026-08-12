@@ -105,7 +105,7 @@ randomise();
 				fireDelayMaster : 0.13 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oMiddleBullet, //single bullet projectile
 				projectileOffest : [32, -1], //pixel offset from sprite origin
-				spread : 2, //spread in degrees
+				spread : 10, //spread in degrees
 				sprite : sMiddleMachineGun, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [50, 0] //projectile velocity
@@ -153,7 +153,7 @@ randomise();
 				spread : 30, //spread in degrees
 				sprite : sFlakCannon, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [15, 0] //projectile velocity 
+				vectVelocity : [20, 0] //projectile velocity 
 			}, 
 		];
 
@@ -464,6 +464,10 @@ randomise();
 					instance_create_layer(x, y, "PlayerThings", oGun, oBody.def[i]); //creates a gun with the data filled in during character creation
 				}
 			}
+			
+			//creates player lockbox and aim point 
+			instance_create_layer(x, y, "PlayerThings", oLockBox);
+			instance_create_layer(x, y, "PlayerThings", oAimPoint);
 		}
 }
 		
