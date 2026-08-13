@@ -49,7 +49,7 @@ randomise();
 			
 			{ //fast leg
 				name : "fast leg", 
-				regularGrip : 8.0, //regular grip
+				regularGrip : 5.0, //regular grip
 				sprintGrip : 3.0,  //lower grip for sprinting
 				regularSpeedCap : 30,
 				sprintSpeedCap : 50,
@@ -130,7 +130,7 @@ randomise();
 				spread : 0, //spread in degrees
 				sprite : sSmallRPG, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [3, 0]
+				vectVelocity : [2, 0] //used as acceleration by rockets
 			},
 			
 			{ //shotgun
@@ -169,13 +169,13 @@ randomise();
 			{ //rotary gun
 				name : "rotary gun", //used for easier handling
 				slotType : "main", //used to figure out slot type 
-				fireDelayMaster : 0.05 * 60, //frames between shots = 1 / (RPM / 60)
+				fireDelayMaster : 0.03 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oSmallBullet, //single bullet projectile
 				projectileOffest : [49, 0], //pixel offset from sprite origin
 				spread : 8, //spread in degrees
 				sprite : sRotaryGun, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [40, 0] //projectile velocity 
+				vectVelocity : [35, 0] //projectile velocity 
 			}, 
 		];
 

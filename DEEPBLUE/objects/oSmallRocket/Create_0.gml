@@ -32,12 +32,12 @@ doTracking = function()
 	
 	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectClamp(vectVelocity, accel));
 	
-	if (angleOff < 0)
+	if (angleOff < 0) //normalize angle 
 	{
 		angleOff += 360;
 	}
 	
-	if (angleOff > 180)
+	if (angleOff > 180) //steer towards target
 	{
 		vectVelocity = oGlobalData.vectRotate(vectVelocity, -agility);
 	}
@@ -46,10 +46,7 @@ doTracking = function()
 		vectVelocity = oGlobalData.vectRotate(vectVelocity, agility);
 	}
 	
-	
-	show_debug_message(string(angleOff));
-	
-	image_angle = -oGlobalData.vectAngle(vectVelocity);
+	image_angle = -oGlobalData.vectAngle(vectVelocity); //rotate image to align with velocity
 }
 
 setupBullet();
