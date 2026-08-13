@@ -3,7 +3,7 @@ id.depth = 475;
 setupBullet = function()
 {
 	image_angle = angle; //face aimed angle
-	//image_angle += random_range(-spread, spread); //spread
+	image_angle += random_range(-spread, spread); //spread
 	vectVelocity = oGlobalData.vectRotate(vectVelocity, -image_angle); //setup vector for direction
 	//vectVelocity = oGlobalData.vectSum(vectVelocity, oLegs.vectVelocity); //add player velocity to bullet velocity
 }
@@ -21,5 +21,4 @@ checkCollision = function()
 
 setupBullet();
 
-alarm[0] = 60*random_range(0.8, 1.2);
-image_angle = -oGlobalData.vectAngle(vectVelocity);
+alarm[0] = 60*1;

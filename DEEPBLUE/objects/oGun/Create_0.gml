@@ -1,7 +1,7 @@
 id.depth = 450;
 sprite_index = sprite;
 image_speed = 0;
-fireDelayTracker = fireDelayMaster; //tracks frames between shots
+fireDelayTracker = 60*0.1; //tracks frames between shots
 vectPos = [0, 0];
  
 

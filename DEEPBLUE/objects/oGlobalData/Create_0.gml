@@ -102,10 +102,10 @@ randomise();
 			{ //middle mg
 				name : "middle mg", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
-				fireDelayMaster : 0.13 * 60, //frames between shots = 1 / (RPM / 60)
+				fireDelayMaster : 0.2 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oMiddleBullet, //single bullet projectile
 				projectileOffest : [32, -1], //pixel offset from sprite origin
-				spread : 10, //spread in degrees
+				spread : 5, //spread in degrees
 				sprite : sMiddleMachineGun, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [50, 0] //projectile velocity
@@ -120,6 +120,17 @@ randomise();
 				sprite : sMiddleRifle, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [150, 0]
+			},
+			{ //smallRPG
+				name : "smallRPG", //used for easier handling
+				slotType : "aux", //used to figure out slot type 
+				fireDelayMaster : 2.0 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oSmallRocket, //single bullet projectile
+				projectileOffest : [33, 0], //pixel offset from sprite origin
+				spread : 0, //spread in degrees
+				sprite : sSmallRPG, 
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [3, 0]
 			},
 			
 			{ //shotgun
@@ -139,7 +150,7 @@ randomise();
 				fireDelayMaster : 0.01 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oFlameBullet, //single bullet projectile
 				projectileOffest : [37, 0], //pixel offset from sprite origin
-				spread : 15, //spread in degrees
+				spread : 5, //spread in degrees
 				sprite : sFlameThrower, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [20, 0] //projectile velocity 
@@ -150,10 +161,21 @@ randomise();
 				fireDelayMaster : 1.25 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oFlakShell, //single bullet projectile
 				projectileOffest : [44, 0], //pixel offset from sprite origin
-				spread : 30, //spread in degrees
+				spread : 20, //spread in degrees
 				sprite : sFlakCannon, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [20, 0] //projectile velocity 
+			}, 
+			{ //rotary gun
+				name : "rotary gun", //used for easier handling
+				slotType : "main", //used to figure out slot type 
+				fireDelayMaster : 0.05 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oSmallBullet, //single bullet projectile
+				projectileOffest : [49, 0], //pixel offset from sprite origin
+				spread : 8, //spread in degrees
+				sprite : sRotaryGun, 
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [40, 0] //projectile velocity 
 			}, 
 		];
 
@@ -278,9 +300,15 @@ randomise();
 			return output;
 		}
 		
-		vectGetComponent = function(vect1, vect2) //returns the component of vect1 in the vect2 direction
+		vectGetComponent = function(vect1, vect2) //returns the component of vect1 in the vect2 direction (vector projection v1 on v2)
 		{
-			return vectDotProduct(vect1, vectClamp(vect2));
+			output = vectDotProduct(vect1, vect2); //do dot product
+			
+			output = vectScale(output, 1/sqr(vectLength(vect2))); //divide by length squared
+			
+			output = vectScale(vect2, vectLength(output)); //multiply by vect2 again
+			
+			return output;
 		}
 		
 		vectAverage = function(vect1, vect2, weight = 0.5) //averages the two vectors passed into it, with optional weight towards 1st vector
@@ -291,6 +319,13 @@ randomise();
 			output = vectSum(output, vectScale(vect2, 1.0 - weight));
 			
 			return output;
+		}
+		
+		vectRotateTo = function(vect1, vect2) //rotates vect1 to face the same direction as vect2 maybe UNTESTED
+		{
+			angle = vectAngle(vect2) - vectAngle(vect1);
+			
+			return vectRotate(vect1, angle);
 		}
 }
 		
