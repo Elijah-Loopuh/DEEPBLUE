@@ -22,3 +22,7 @@ checkCollision = function()
 setupBullet();
 
 alarm[0] = 60*1;
+
+instance_create_layer(x, y, "PlayerThings", oSmokeParticle);
+instance_create_layer(x, y, "PlayerThings", oSmokeParticle);
+instance_create_layer(x, y, "PlayerThings", oSmokeParticle);
