@@ -21,6 +21,11 @@ checkCollision = function()
 			collided.takeDamage(damage); //deal damage
 			instance_destroy();
 		}
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.playerList) && tag == "enemy") //if hitting enemy
+		{
+			oBody.takeDamage(damage);
+			instance_destroy();
+		}
 	}
 }
 

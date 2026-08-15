@@ -23,6 +23,8 @@ else //dodge handling
 		
 		vectVelocity = oGlobalData.vectScale(vectVelocity, 3);
 		vectVelocity = oGlobalData.vectRotate(vectVelocity, 90);
+		
+		instance_create_layer(x, y, "PlayerThings", oSmallRocket, rocketData); //shoot rocket at the player
 	}
 	if (dodgeDurationTracker > 0) //execute dodge
 	{

@@ -12,6 +12,24 @@ randomise();
 		[
 			oEnemyParent, 
 		];
+		
+		playerList = //list of player objects
+		[
+			oLegs, 
+			oBody, 
+		];
+		
+		uiList = 
+		[
+			rHullScreen, 
+			rSlotScreen, 
+			rGunScreen
+		];
+		
+		roomList = 
+		[
+			rTestingRoom, 
+		];
 
 		currentSlotData = //stores data used to put guns in slots for the player
 		{
@@ -53,7 +71,7 @@ randomise();
 				sprintGrip : 3.0,  //lower grip for sprinting
 				regularSpeedCap : 30,
 				sprintSpeedCap : 50,
-				dragStatic : 0.30, //drag when no buttons held
+				dragStatic : 0.20, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 75, //dash speed
 				dashCooldownMaster : 60*0.35, //# of frames between dash initiations
@@ -99,6 +117,32 @@ randomise();
 				gimmick : "stealth", 
 			},
 			
+			{ //heavy leg
+				name : "heavy leg", 
+				regularGrip : 0.5, //regular grip
+				sprintGrip : 0.35,  //lower grip for sprinting
+				regularSpeedCap : 12,
+				sprintSpeedCap : 25,
+				dragStatic : 0.1, //drag when no buttons held
+				dragDynamic : 0.0,//drag when movement buttons are held
+				dashPower : 25, //dash speed
+				dashCooldownMaster : 60*2.0, //# of frames between dash initiations
+				dashDurationMaster : 60*0.75,
+				sprite : sHeavyLegs
+			}, 
+			{ //heavy body
+				name : "heavy body", 
+				main : [0, 0, -1, -1, -1], //0 = available slot, -1 = unavailable, string text = assigned to that equipment
+				aux : [0, 0, 0, -1, -1], 
+				def : [0, 0, -1, -1, -1], 
+				sprite : sHeavyBody, 
+				mainOffsets: [[41, -24], [41, 24]], //stores coordinates of weapon mounts relative to sprite origin as vectors, idicies match with slot indicies
+				auxOffsets: [[0, -20], [0, 20], [20, 0]], 
+				defOffsets: [[-41, 14], [-41, -14]],
+				hpMax : 200, 
+				gimmick : "none", 
+			},
+			
 			{ //middle mg
 				name : "middle mg", //used for easier handling
 				slotType : "aux", //used to figure out slot type 
@@ -131,7 +175,7 @@ randomise();
 				fireDelayMaster : 2.0 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oSmallRocket, //single bullet projectile
 				projectileOffest : [33, 0], //pixel offset from sprite origin
-				spread : 0, //spread in degrees
+				spread : 10, //spread in degrees
 				sprite : sSmallRPG, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [2, 0], //used as acceleration by rockets
@@ -171,10 +215,10 @@ randomise();
 				fireDelayMaster : 0.5 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oFlakShell, //single bullet projectile
 				projectileOffest : [44, 0], //pixel offset from sprite origin
-				spread : 20, //spread in degrees
+				spread : 15, //spread in degrees
 				sprite : sFlakCannon, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [20, 0],  //projectile velocity 
+				vectVelocity : [25, 0],  //projectile velocity 
 				tag : "friendly", 
 				damage : 5, 
 			}, 
@@ -202,13 +246,15 @@ randomise();
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [1, 0],  //projectile velocity 
 				tag : "friendly", 
-				damage : 20, 
+				damage : 25, 
 			}, 
 		];
 
 		
 		equippedLegs = "default leg"; //stores the name of frame peices equipped
 		equippedBody = "default body";
+		
+		vectZero = [0, 0]; //used to set other stuff to
 }
 
 //functions

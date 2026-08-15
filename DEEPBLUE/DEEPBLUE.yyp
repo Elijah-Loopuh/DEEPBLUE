@@ -87,6 +87,8 @@
     {"id":{"name":"sFlameProjectile","path":"sprites/sFlameProjectile/sFlameProjectile.yy",},},
     {"id":{"name":"sFlameThrower","path":"sprites/sFlameThrower/sFlameThrower.yy",},},
     {"id":{"name":"sGround","path":"sprites/sGround/sGround.yy",},},
+    {"id":{"name":"sHeavyBody","path":"sprites/sHeavyBody/sHeavyBody.yy",},},
+    {"id":{"name":"sHeavyLegs","path":"sprites/sHeavyLegs/sHeavyLegs.yy",},},
     {"id":{"name":"sLockBox","path":"sprites/sLockBox/sLockBox.yy",},},
     {"id":{"name":"sMiddleBullet","path":"sprites/sMiddleBullet/sMiddleBullet.yy",},},
     {"id":{"name":"sMiddleMachineGun","path":"sprites/sMiddleMachineGun/sMiddleMachineGun.yy",},},

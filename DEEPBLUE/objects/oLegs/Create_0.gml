@@ -16,7 +16,7 @@ dashDurationMaster = 0;
 */
 sprite_index = sprite;
 angleStore = 0;
-snapSpeed = 0.5;
+snapSpeed = 0.5; //threshold to snap to a speed value
 dashDuration = 0;
 vectVelocity = [0, 0]; //tracks 2d Velocity
 vectMoveInput = [0, 0]; //tracks 2d inputs
@@ -28,6 +28,7 @@ speedCap = regularSpeedCap; //tracks current speed cap
 drag = dragStatic; //fraction d/1 of speed lost every 
 dashCooldown = dashCooldownMaster;
 animationSpeed = 1/45; //multiplier from vectVelocity scale to animation fps
+
 
 
 updateVars = function() //updates variables
@@ -74,24 +75,13 @@ updateVectorMoveInput = function ()
 	vectMoveInput = oGlobalData.vectClamp(vectMoveInput, 1); //caps the vector to a unit circle
 }
 
-updateVelocityVector = function()
+updateVectVelocity = function() //handles move input & drag application
 {
-	if (underSpeed) //give control when under speedcap
-	{
-		vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectScale(vectMoveInput, grip)); //modifies velocity with move input
-		
-	}
-	else //cap speed when over speed
-	{
-		
-	}
-}
-
-applyDrag = function() //drag is proportional to velocity, soft caps at drag/grip. applys drag to velocity, and snaps velocity to 0 when below snapSpeed
-{
+	underSpeed = oGlobalData.vectLength(vectVelocity) <= speedCap; //tracks if player has control of the mech
 	if (keyMove && underSpeed) //low grip when move inputs allowed
 	{
 		drag = dragDynamic;
+		vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectScale(vectMoveInput, grip)); //modifies velocity with move input
 		vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //cap speed under normal circumstances
 	}
 	else //high drag when no input allowed
@@ -102,8 +92,13 @@ applyDrag = function() //drag is proportional to velocity, soft caps at drag/gri
 	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectScale(vectVelocity, drag)));
 	if (oGlobalData.vectLength(vectVelocity) < snapSpeed)
 	{
-		vectVelocity[0] = 0;
-		vectVelocity[1] = 0;
+		vectVelocity = oGlobalData.vectZero;
+	}
+	
+	if (abs(oGlobalData.vectLength(vectVelocity) - speedCap) < snapSpeed && false)
+	{
+		vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //snap to speed cap to prevent fluttering
+		show_debug_message("oLegs, vectVelocity snapped");
 	}
 }
 

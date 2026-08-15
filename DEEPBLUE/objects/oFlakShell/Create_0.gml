@@ -9,7 +9,15 @@ setupBullet = function()
 
 checkCollision = function()
 {
-	if (instance_place(x, y, oGlobalData.collisionList) || instance_place(x, y, oGlobalData.enemyList)) //wallcheck collision
+	if ((instance_place(x, y, oGlobalData.collisionList) || instance_place(x, y, oGlobalData.enemyList)) && tag == "friendly") //wallcheck collision
+	{
+		for (var j = 0; j < 12; j ++) //spawn a bunch of flak
+		{
+			instance_create_layer(x, y, "PlayerThings", oMiddleBullet, {spread : 180, angle : 0, vectVelocity : [20, 0], tag : tag, damage : damage})
+		}
+		instance_destroy(id);
+	}
+	if ((instance_place(x, y, oGlobalData.collisionList) || instance_place(x, y, oGlobalData.playerList)) && tag == "enemy") //wallcheck collision
 	{
 		for (var j = 0; j < 12; j ++) //spawn a bunch of flak
 		{

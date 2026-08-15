@@ -6,9 +6,7 @@ handleSprint();
 
 updateVectorMoveInput();
 
-updateVelocityVector();
-
-applyDrag();
+updateVectVelocity();
 
 handleDash();
 
@@ -22,8 +20,8 @@ move();
 
 
 
+show_debug_message(string(oGlobalData.vectLength(vectVelocity)));
 /*
-show_debug_message(oGlobalData.vectLength(oGlobalData.vectGetComponent([10, 0], oGlobalData.vectSum(oGlobalData.vectInvert(vectPos), oLockBox.vectPos))));
 
 /*
 show_debug_message("XXX");

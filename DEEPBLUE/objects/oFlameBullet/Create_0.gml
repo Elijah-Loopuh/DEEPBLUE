@@ -15,10 +15,15 @@ checkCollision = function()
 		{
 			instance_destroy(); //destroy if you hit a wall
 		}
-		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList)) //if hitting enemy
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList) && tag == "friendly") //if hitting enemy
 		{
 			collided = instance_place(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList);
 			collided.takeDamage(damage); //deal damage
+			instance_destroy();
+		}
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.playerList) && tag == "enemy") //if hitting enemy
+		{
+			oBody.takeDamage(damage);
 			instance_destroy();
 		}
 	}
@@ -26,6 +31,6 @@ checkCollision = function()
 
 setupBullet();
 
-alarm[0] = 60*random_range(0.8, 1.2);
+alarm[0] = 60*random_range(1.2, 1.6);
 image_angle = -oGlobalData.vectAngle(vectVelocity);
 

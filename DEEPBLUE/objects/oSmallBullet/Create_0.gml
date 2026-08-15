@@ -9,7 +9,7 @@ setupBullet = function()
 
 checkCollision = function()
 {
-	for (var i = 0; i < 5; i ++)
+	for (var i = 0; i < 5; i ++) //do substeps for high velocity shots
 	{
 		 //check collision
 		
@@ -23,11 +23,16 @@ checkCollision = function()
 			collided.takeDamage(damage); //deal damage
 			instance_destroy();
 		}
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.playerList) && tag == "enemy") //if hitting enemy
+		{
+			oBody.takeDamage(damage);
+			instance_destroy();
+		}
 	}
 }
 
 setupBullet();
 
-alarm[0] = 60*1;
+alarm[0] = 60*3;
 
 instance_create_layer(x, y, "PlayerThings", oSmokeParticle);

@@ -2,8 +2,9 @@ id.depth = 475;
 
 setupBullet = function()
 {
-	
+	tracking = true;
 	vectDirection = oGlobalData.vectClamp(oGlobalData.vectSum(oGlobalData.vectInvert([x, y]), oLockBox.vectPos)); //gets a vector that points to the target
+	loseLockThreshold = 0.1; //seconds from impact to stop tracking at
 	
 	image_angle = -oGlobalData.vectAngle(vectDirection);
 	image_angle += random_range(-spread, spread); //spread
@@ -21,10 +22,15 @@ checkCollision = function()
 		{
 			instance_destroy(); //destroy if you hit a wall
 		}
-		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList)) //if hitting enemy
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList) && tag == "friendly") //if hitting enemy
 		{
 			collided = instance_place(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList);
 			collided.takeDamage(damage); //deal damage
+			instance_destroy();
+		}
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.playerList) && tag == "enemy") //if hitting enemy
+		{
+			oBody.takeDamage(damage);
 			instance_destroy();
 		}
 	}
@@ -32,7 +38,22 @@ checkCollision = function()
 
 doTracking = function()
 {
-	vectDirection = oGlobalData.vectClamp(oGlobalData.vectSum(oGlobalData.vectInvert([x, y]), oLockBox.vectPos)); //gets a vector that points to the target
+	if (tracking)
+	{
+		if (tag == "friendly")
+		{
+			vectDirection = oGlobalData.vectSum(oGlobalData.vectInvert([x, y]), oLockBox.vectPos); //gets a vector that points to the target
+		}
+		if (tag == "enemy")
+		{
+			vectDirection = oGlobalData.vectSum(oGlobalData.vectInvert([x, y]), oLegs.vectPos); //gets a vector that points to the target
+		}
+		
+		if (oGlobalData.vectLength(vectDirection) < oGlobalData.vectLength(vectVelocity) * 60*loseLockThreshold) //lose tracking when too close to target
+		{
+			tracking = false;
+		}
+	}
 	
 	angleOff = oGlobalData.vectAngle(vectDirection) - oGlobalData.vectAngle(vectVelocity); //calculate mis aim vector
 	
