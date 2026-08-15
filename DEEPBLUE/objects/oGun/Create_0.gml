@@ -37,7 +37,7 @@ vectPos = [0, 0];
 			}
 			if (oGlobalData.getWepInputs(fireKey) && fireDelayTracker <= 0) //shoot bullets
 			{
-				instance_create_layer(vectProjectileOffset[0], vectProjectileOffset[1], "PlayerThings", projectile, {spread : spread, angle : image_angle, vectVelocity: vectVelocity});
+				instance_create_layer(vectProjectileOffset[0], vectProjectileOffset[1], "PlayerThings", projectile, {spread : spread, angle : image_angle, vectVelocity: vectVelocity, tag : tag, damage : damage});
 				fireDelayTracker = fireDelayMaster;
 				image_index = 1;
 			}

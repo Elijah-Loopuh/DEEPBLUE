@@ -49,6 +49,7 @@
     {"id":{"name":"oEnemyBlue","path":"objects/oEnemyBlue/oEnemyBlue.yy",},},
     {"id":{"name":"oEnemyParent","path":"objects/oEnemyParent/oEnemyParent.yy",},},
     {"id":{"name":"oEnemyRed","path":"objects/oEnemyRed/oEnemyRed.yy",},},
+    {"id":{"name":"oEnemySmart","path":"objects/oEnemySmart/oEnemySmart.yy",},},
     {"id":{"name":"oFlakShell","path":"objects/oFlakShell/oFlakShell.yy",},},
     {"id":{"name":"oFlameBullet","path":"objects/oFlameBullet/oFlameBullet.yy",},},
     {"id":{"name":"oFunctionCaller","path":"objects/oFunctionCaller/oFunctionCaller.yy",},},

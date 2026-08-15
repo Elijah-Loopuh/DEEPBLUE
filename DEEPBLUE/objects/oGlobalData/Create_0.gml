@@ -108,7 +108,9 @@ randomise();
 				spread : 5, //spread in degrees
 				sprite : sMiddleMachineGun, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [50, 0] //projectile velocity
+				vectVelocity : [50, 0], //projectile velocity
+				tag : "friendly", //used by bullets to decide who to hurt
+				damage : 5, 
 			}, 
 			{ //middle rifle
 				name : "middle rifle", //used for easier handling
@@ -119,7 +121,9 @@ randomise();
 				spread : 0, //spread in degrees
 				sprite : sMiddleRifle, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [150, 0]
+				vectVelocity : [150, 0], 
+				tag : "friendly", 
+				damage : 25, 
 			},
 			{ //smallRPG
 				name : "smallRPG", //used for easier handling
@@ -130,7 +134,9 @@ randomise();
 				spread : 0, //spread in degrees
 				sprite : sSmallRPG, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [2, 0] //used as acceleration by rockets
+				vectVelocity : [2, 0], //used as acceleration by rockets
+				tag : "friendly", 
+				damage : 75
 			},
 			
 			{ //shotgun
@@ -142,7 +148,9 @@ randomise();
 				spread : 5, //spread in degrees
 				sprite : sShotGun, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [35, 0]
+				vectVelocity : [35, 0], 
+				tag : "friendly", 
+				damage : 3, 
 			}, 
 			{ //flamethrower
 				name : "flamethrower", //used for easier handling
@@ -153,18 +161,22 @@ randomise();
 				spread : 5, //spread in degrees
 				sprite : sFlameThrower, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [20, 0] //projectile velocity 
+				vectVelocity : [20, 0], //projectile velocity 
+				tag : "friendly", 
+				damage : 1, 
 			}, 
 			{ //flak cannon
 				name : "flak cannon", //used for easier handling
 				slotType : "main", //used to figure out slot type 
-				fireDelayMaster : 1.25 * 60, //frames between shots = 1 / (RPM / 60)
+				fireDelayMaster : 0.75 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oFlakShell, //single bullet projectile
 				projectileOffest : [44, 0], //pixel offset from sprite origin
 				spread : 20, //spread in degrees
 				sprite : sFlakCannon, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [20, 0] //projectile velocity 
+				vectVelocity : [20, 0],  //projectile velocity 
+				tag : "friendly", 
+				damage : 5, 
 			}, 
 			{ //rotary gun
 				name : "rotary gun", //used for easier handling
@@ -175,7 +187,9 @@ randomise();
 				spread : 8, //spread in degrees
 				sprite : sRotaryGun, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [35, 0] //projectile velocity 
+				vectVelocity : [35, 0],  //projectile velocity 
+				tag : "friendly", 
+				damage : 1, 
 			}, 
 		];
 

@@ -17,9 +17,15 @@ checkCollision = function()
 {
 	for (var i = 0; i < 5; i ++)
 	{
-		if (instance_place(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.collisionList))
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.collisionList)) //if going to hit a wall
 		{
-			instance_destroy(id);
+			instance_destroy(); //destroy if you hit a wall
+		}
+		if (place_meeting(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList)) //if hitting enemy
+		{
+			collided = instance_place(x + vectVelocity[0]*i*0.25, y + vectVelocity[1]*i*0.25, oGlobalData.enemyList);
+			collided.takeDamage(damage); //deal damage
+			instance_destroy();
 		}
 	}
 }
@@ -51,4 +57,4 @@ doTracking = function()
 
 setupBullet();
 
-alarm[0] = 60*10;
+alarm[0] = 60*3;
