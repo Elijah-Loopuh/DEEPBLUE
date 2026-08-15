@@ -23,8 +23,6 @@ else //dodge handling
 		
 		vectVelocity = oGlobalData.vectScale(vectVelocity, 3);
 		vectVelocity = oGlobalData.vectRotate(vectVelocity, 90);
-		
-		show_debug_message("oEnemySmart: Dodge Started");
 	}
 	if (dodgeDurationTracker > 0) //execute dodge
 	{
@@ -35,10 +33,6 @@ else //dodge handling
 		dodgeCooldownTracker = dodgeCooldown;
 	}
 }
-
-show_debug_message(dodgeCooldownTracker);
-show_debug_message(dodgeDurationTracker);
-show_debug_message("");
 
 x += vectVelocity[0];
 y += vectVelocity[1];
