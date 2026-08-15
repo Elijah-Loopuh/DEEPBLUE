@@ -136,7 +136,7 @@ randomise();
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [2, 0], //used as acceleration by rockets
 				tag : "friendly", 
-				damage : 75
+				damage : 50
 			},
 			
 			{ //shotgun
@@ -168,7 +168,7 @@ randomise();
 			{ //flak cannon
 				name : "flak cannon", //used for easier handling
 				slotType : "main", //used to figure out slot type 
-				fireDelayMaster : 0.75 * 60, //frames between shots = 1 / (RPM / 60)
+				fireDelayMaster : 0.5 * 60, //frames between shots = 1 / (RPM / 60)
 				projectile : oFlakShell, //single bullet projectile
 				projectileOffest : [44, 0], //pixel offset from sprite origin
 				spread : 20, //spread in degrees
@@ -189,7 +189,20 @@ randomise();
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [35, 0],  //projectile velocity 
 				tag : "friendly", 
-				damage : 1, 
+				damage : 3, 
+			}, 
+			{ //quad rocket
+				name : "quad rocket", //used for easier handling
+				slotType : "main", //used to figure out slot type 
+				fireDelayMaster : 3.5 * 60, //frames between shots = 1 / (RPM / 60)
+				projectile : oRocketBurst, //single bullet projectile
+				projectileOffest : [0, 0], //pixel offset from sprite origin
+				spread : 180, //spread in degrees
+				sprite : sQuadRocket, 
+				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
+				vectVelocity : [1, 0],  //projectile velocity 
+				tag : "friendly", 
+				damage : 20, 
 			}, 
 		];
 
