@@ -46,7 +46,7 @@ doTracking = function()
 		}
 		if (tag == "enemy")
 		{
-			vectDirection = oGlobalData.vectSum(oGlobalData.vectInvert([x, y]), oLegs.vectPos); //gets a vector that points to the target
+			vectDirection = oGlobalData.vectSum(oGlobalData.vectInvert([x, y]), oBody.vectPosTarget); //gets a vector that points to the target
 		}
 		
 		if (oGlobalData.vectLength(vectDirection) < oGlobalData.vectLength(vectVelocity) * 60*loseLockThreshold) //lose tracking when too close to target

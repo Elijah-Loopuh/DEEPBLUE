@@ -8,7 +8,7 @@ if (dodgeCooldownTracker >= 0) //normal movement
 	vectVelocity[0] = moveSpeed;
 	vectVelocity[1] = 0;
 	
-	vectOffset = oGlobalData.vectSum(oGlobalData.vectInvert(vectPos), oLegs.vectPos);
+	vectOffset = oGlobalData.vectSum(oGlobalData.vectInvert(vectPos), oBody.vectPosTarget);
 	
 	vectVelocity = oGlobalData.vectRotateTo(vectVelocity, vectOffset);
 	

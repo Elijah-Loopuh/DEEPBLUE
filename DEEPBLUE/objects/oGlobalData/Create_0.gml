@@ -255,6 +255,8 @@ randomise();
 		equippedBody = "default body";
 		
 		vectZero = [0, 0]; //used to set other stuff to
+		
+		frameCounter = 0;
 }
 
 //functions
@@ -400,6 +402,13 @@ randomise();
 			
 			return vectRotate(vect1, angle);
 		}
+		
+		vectScramble = function(vect1, scalar) //returns vector with endpoint randomized to point within a circle of radius (scalar)
+		{
+			vectModify = [random(scalar), 0]; //create vector with random radius
+			vectModify = vectRotate(vectModify, random(360)); //rotate vector to random direction in a circle
+			return vectSum(vect1, vectModify); 
+		}
 }
 		
 	//partData functions
@@ -521,7 +530,7 @@ randomise();
 			instance_create_layer(0, 0, "PlayerThings", oBody, partData[index]); //creates a body object with proper data
 		}
 		
-		initalizePlayerGun = function(name, key, index = -1) //fills a slot in selected body's partData entries equipment array with the selected gun data
+		initalizePlayerGun = function(name, key, index = -1) //DEPRECATED fills a slot in selected body's partData entries equipment array with the selected gun data
 		{
 			partIndex = getPartIndex(name); //stores the index of the globalData array entry for this part
 			

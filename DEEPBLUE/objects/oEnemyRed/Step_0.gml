@@ -1,6 +1,6 @@
 vectPos = [x, y];
 
-vectVelocity = oGlobalData.vectSum( oGlobalData.vectInvert(vectPos) ,oLegs.vectPos);
+vectVelocity = oGlobalData.vectSum( oGlobalData.vectInvert(vectPos), oBody.vectPosTarget);
 
 vectVelocity = oGlobalData.vectClamp(vectVelocity, moveSpeed);
 

@@ -3,4 +3,8 @@
 faceToMouse();
 updatePosition();
 
-vectPos = [x, y]; //tracks position
+
+
+show_debug_message(string(vectPos));
+show_debug_message(string(vectVelocity));
+show_debug_message("");
