@@ -5,6 +5,6 @@ updatePosition();
 
 
 
-show_debug_message(string(vectPos));
-show_debug_message(string(vectVelocity));
+show_debug_message(string(vectPosTarget));
+show_debug_message(string(vectVelocityTarget));
 show_debug_message("");
