@@ -25,6 +25,7 @@ hp = hpMax;
 		{
 			if (oGlobalData.frameCounter % 30 == 0) //update twice per second
 			{
+				//oGun.shootBullet() also updates pos & velocity targets to show position when firing no matter the gimmick
 				vectPosTarget = oLegs.vectPos;
 				vectVelocityTarget = oLegs.vectVelocity;
 		

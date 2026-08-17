@@ -7,7 +7,7 @@ image_angle = -oGlobalData.vectAngle(vectVelocity);
 
 checkCollision();
 
-if (alarm[0] % 7 == 0)
+if (alarm[0] % 10 == 0)
 {
 	instance_create_layer(x, y, "PlayerThings", oSmokeParticle);
 }

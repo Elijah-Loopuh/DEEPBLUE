@@ -93,14 +93,14 @@ randomise();
 			
 			{ //stealth leg
 				name : "stealth leg", 
-				regularGrip : 0.75, //regular grip
+				regularGrip : 0.65, //regular grip
 				sprintGrip : 0.5,  //lower grip for sprinting
-				regularSpeedCap : 15,
-				sprintSpeedCap : 30,
+				regularSpeedCap : 10,
+				sprintSpeedCap : 25,
 				dragStatic : 0.07, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 35, //dash speed
-				dashCooldownMaster : 60*1, //# of frames between dash initiations
+				dashCooldownMaster : 60*1.25, //# of frames between dash initiations
 				dashDurationMaster : 60*0.20,
 				sprite : sStealthLegs
 			}, 
@@ -123,7 +123,7 @@ randomise();
 				sprintGrip : 0.35,  //lower grip for sprinting
 				regularSpeedCap : 12,
 				sprintSpeedCap : 25,
-				dragStatic : 0.1, //drag when no buttons held
+				dragStatic : 0.05, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 25, //dash speed
 				dashCooldownMaster : 60*2.0, //# of frames between dash initiations
@@ -165,7 +165,7 @@ randomise();
 				spread : 0, //spread in degrees
 				sprite : sMiddleRifle, 
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
-				vectVelocity : [150, 0], 
+				vectVelocity : [125, 0], 
 				tag : "friendly", 
 				damage : 25, 
 			},
