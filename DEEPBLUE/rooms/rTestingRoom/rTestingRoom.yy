@@ -528,6 +528,7 @@
     {"name":"inst_7AB0FF64","path":"rooms/rTestingRoom/rTestingRoom.yy",},
     {"name":"inst_1C388764","path":"rooms/rTestingRoom/rTestingRoom.yy",},
     {"name":"inst_7C74CD9D","path":"rooms/rTestingRoom/rTestingRoom.yy",},
+    {"name":"inst_24A72D7F","path":"rooms/rTestingRoom/rTestingRoom.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -536,6 +537,7 @@
         {"$GMRInstance":"v4","%Name":"inst_7AB0FF64","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7AB0FF64","objectId":{"name":"oEnemyBlue","path":"objects/oEnemyBlue/oEnemyBlue.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":2176.0,"y":1536.0,},
         {"$GMRInstance":"v4","%Name":"inst_1C388764","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1C388764","objectId":{"name":"oEnemyRed","path":"objects/oEnemyRed/oEnemyRed.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":2560.0,"y":1856.0,},
         {"$GMRInstance":"v4","%Name":"inst_7C74CD9D","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7C74CD9D","objectId":{"name":"oEnemySmart","path":"objects/oEnemySmart/oEnemySmart.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":1792.0,"y":1280.0,},
+        {"$GMRInstance":"v4","%Name":"inst_24A72D7F","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_24A72D7F","objectId":{"name":"oEnemyCar","path":"objects/oEnemyCar/oEnemyCar.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":2688.0,"y":1664.0,},
       ],"layers":[
         {"$GMRInstanceLayer":"","%Name":"PlayerThings","depth":100,"effectEnabled":true,"effectType":null,"gridX":64,"gridY":64,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"PlayerThings","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
         {"$GMRInstanceLayer":"","%Name":"Walls","depth":200,"effectEnabled":true,"effectType":null,"gridX":64,"gridY":64,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[

@@ -154,7 +154,7 @@ randomise();
 				mountOffset : [0, 0], //filled in when gun is assigned to a slot. placeholder
 				vectVelocity : [50, 0], //projectile velocity
 				tag : "friendly", //used by bullets to decide who to hurt
-				damage : 5, 
+				damage : 8, 
 			}, 
 			{ //middle rifle
 				name : "middle rifle", //used for easier handling
@@ -226,7 +226,7 @@ randomise();
 				name : "rotary gun", //used for easier handling
 				slotType : "main", //used to figure out slot type 
 				fireDelayMaster : 0.03 * 60, //frames between shots = 1 / (RPM / 60)
-				projectile : oSmallBullet, //single bullet projectile
+				projectile : oMiddleBullet, //single bullet projectile
 				projectileOffest : [49, 0], //pixel offset from sprite origin
 				spread : 8, //spread in degrees
 				sprite : sRotaryGun, 
