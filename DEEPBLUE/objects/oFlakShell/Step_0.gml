@@ -3,4 +3,6 @@ y += vectVelocity[1];
 
 checkCollision();
 
-image_angle += 1;
+
+
+instance_create_layer(x, y, "PlayerThings", oSmokeParticle);

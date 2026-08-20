@@ -12,7 +12,10 @@
     "name":"Enemy",
     "path":"folders/Objects/Physical/Enemy.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oMoverParent",
+    "path":"objects/oMoverParent/oMoverParent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

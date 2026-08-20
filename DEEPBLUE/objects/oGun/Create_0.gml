@@ -7,12 +7,24 @@ vectPos = [0, 0];
 
 	//functions
 		
-		faceToMouse = function() //points to mouse
+		faceToMouse = function() //points to mouse & does lead calculation
 		{
 			vectPos = [x, y];
+			
 			distance = oGlobalData.vectLength(oGlobalData.vectSum(vectPos, oGlobalData.vectInvert(oLockBox.vectPos))); //distance from gun to target
+			
 			lead = oGlobalData.vectScale(oLockBox.vectVelocity, distance/oGlobalData.vectLength(vectVelocity)); //displacement from target to aim point
+			
 			vectTarget = oGlobalData.vectSum(oLockBox.vectPos, lead); //add calculated lead to enemy position to get aim point
+			
+			//repeats lead calculation b/c distance to target point is not the same as the distance to actual target
+			distance = oGlobalData.vectLength(oGlobalData.vectSum(vectPos, oGlobalData.vectInvert(vectTarget))); //distance from gun to target
+			
+			lead = oGlobalData.vectScale(oLockBox.vectVelocity, distance/oGlobalData.vectLength(vectVelocity)); //displacement from target to aim point
+			
+			vectTarget = oGlobalData.vectSum(oLockBox.vectPos, lead); //add calculated lead to enemy position to get aim point
+			
+			
 			image_angle = - oGlobalData.vectAngle(oGlobalData.vectSum(oGlobalData.vectInvert(vectPos),vectTarget));
 		}
 		

@@ -1,13 +1,6 @@
 
+updateVars(); //updates tracking variables
 
-updateVars();
+updateVectorMoveInput(); //ai controls replace player input
 
-updateVectorMoveInput();
-
-updateVectVelocity();
-
-setAngle();
-
-handleCollisionNew();
-
-move();
+event_inherited(); //calls oMoverParent movement code

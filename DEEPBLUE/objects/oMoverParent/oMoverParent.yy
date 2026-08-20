@@ -1,21 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"oEnemyRed",
+  "%Name":"oMoverParent",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oEnemyRed",
+  "name":"oMoverParent",
   "overriddenProperties":[],
   "parent":{
-    "name":"Enemy",
-    "path":"folders/Objects/Physical/Enemy.yy",
+    "name":"Misc",
+    "path":"folders/Objects/Physical/Misc.yy",
   },
-  "parentObjectId":{
-    "name":"oEnemyParent",
-    "path":"objects/oEnemyParent/oEnemyParent.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -33,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sEnemyTemp",
-    "path":"sprites/sEnemyTemp/sEnemyTemp.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

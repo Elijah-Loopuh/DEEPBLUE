@@ -1,4 +1,4 @@
-vectPos = [x, y];
+
 
 updateVars();
 
