@@ -1,5 +1,6 @@
 
 //hard set movement params
+id.depth = 800;
 angleStore = 0;
 snapSpeed = 0.5; //threshold to snap to a speed value
 vectVelocity = [0, 0]; //tracks 2d Velocity
