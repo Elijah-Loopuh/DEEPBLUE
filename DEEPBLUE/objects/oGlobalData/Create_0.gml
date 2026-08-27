@@ -293,7 +293,7 @@ randomise();
 		{
 			if (vectLength(vect1) != 0)
 			{
-				return vectScale(vect1, scalar / vectLength(vect1))
+				return vectScale(vect1, scalar / vectLength(vect1));
 			}
 			else
 			{
