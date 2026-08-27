@@ -74,7 +74,7 @@ updateVectVelocity = function() //handles move input & drag application
 		drag = dragStatic;
 	}
 	
-	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectScale(vectVelocity, drag)));
+	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectClamp(vectVelocity, drag))); //drag now applied like grip, not a percentage
 	if (oGlobalData.vectLength(vectVelocity) < snapSpeed)
 	{
 		vectVelocity = oGlobalData.vectZero;

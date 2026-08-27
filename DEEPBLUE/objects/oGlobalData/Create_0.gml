@@ -45,7 +45,7 @@ randomise();
 				sprintGrip : 1.0,  //lower grip for sprinting
 				regularSpeedCap : 15,
 				sprintSpeedCap : 35,
-				dragStatic : 0.15, //drag when no buttons held
+				dragStatic : 1.0, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 50, //dash speed
 				dashCooldownMaster : 60*0.75, //# of frames between dashes
@@ -71,7 +71,7 @@ randomise();
 				sprintGrip : 3.0,  //lower grip for sprinting
 				regularSpeedCap : 30,
 				sprintSpeedCap : 50,
-				dragStatic : 0.20, //drag when no buttons held
+				dragStatic : 2.0, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 75, //dash speed
 				dashCooldownMaster : 60*0.35, //# of frames between dash initiations
@@ -97,7 +97,7 @@ randomise();
 				sprintGrip : 0.5,  //lower grip for sprinting
 				regularSpeedCap : 10,
 				sprintSpeedCap : 25,
-				dragStatic : 0.07, //drag when no buttons held
+				dragStatic : 0.3, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 35, //dash speed
 				dashCooldownMaster : 60*1.25, //# of frames between dash initiations
@@ -123,7 +123,7 @@ randomise();
 				sprintGrip : 0.35,  //lower grip for sprinting
 				regularSpeedCap : 12,
 				sprintSpeedCap : 25,
-				dragStatic : 0.05, //drag when no buttons held
+				dragStatic : 0.3, //drag when no buttons held
 				dragDynamic : 0.0,//drag when movement buttons are held
 				dashPower : 25, //dash speed
 				dashCooldownMaster : 60*2.0, //# of frames between dash initiations

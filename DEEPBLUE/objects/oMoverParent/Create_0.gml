@@ -38,15 +38,15 @@ updateVectVelocity = function() //handles move input & drag application
 		drag = dragStatic;
 	}
 	
-	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectScale(vectVelocity, drag))); //apply drag
-	if (oGlobalData.vectLength(vectVelocity) < snapSpeed) //anti fluttering
+	vectVelocity = oGlobalData.vectSum(vectVelocity, oGlobalData.vectInvert(oGlobalData.vectClamp(vectVelocity, drag))); //drag now applied like grip, not a percentage
+	if (oGlobalData.vectLength(vectVelocity) < snapSpeed)
 	{
-		//vectVelocity = oGlobalData.vectZero;
+		vectVelocity = oGlobalData.vectZero;
 	}
 	
-	if (abs(oGlobalData.vectLength(vectVelocity) - speedCap) < snapSpeed && false) //anti fluttering
+	if (abs(oGlobalData.vectLength(vectVelocity) - speedCap) < snapSpeed && false)
 	{
-		//vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //snap to speed cap to prevent fluttering
+		vectVelocity = oGlobalData.vectMax(vectVelocity, speedCap); //snap to speed cap to prevent fluttering
 	}
 }
 
