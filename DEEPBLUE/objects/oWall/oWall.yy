@@ -8,8 +8,8 @@
   "name":"oWall",
   "overriddenProperties":[],
   "parent":{
-    "name":"Physical",
-    "path":"folders/Objects/Physical.yy",
+    "name":"Misc",
+    "path":"folders/Objects/Physical/Misc.yy",
   },
   "parentObjectId":null,
   "persistent":false,
